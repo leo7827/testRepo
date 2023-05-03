@@ -1,0 +1,669 @@
+﻿Drop Table UnitModeDef;
+Drop Table UnitStsLog;
+DROP TABLE AlarmDef;
+DROP TABLE ALARMDATA;
+DROP TABLE DeviceDef;
+DROP TABLE EQ_Alarm;
+DROP TABLE PortDef;
+DROP TABLE SHELFDef;
+DROP TABLE Routdef;
+DROP TABLE SnoCtrlDef;
+DROP TABLE Task;
+DROP TABLE HisTask;
+DROP TABLE SNO_CTL;
+DROP TABLE SNO_MAX
+DROP TABLE CMD_MST;
+Drop Table CMD_MST_His;
+Drop Table Teach_Loc;
+Drop Table r_wms_location;
+
+Create Table UnitModeDef
+(
+[StockerID] [varchar](64) NOT NULL,
+[In_enable] [varchar](1) NOT NULL Default 'Y',
+PRIMARY KEY(StockerID)
+);
+
+Create Table UnitStsLog
+(
+[StockerID] [varchar](64) NOT NULL,
+[UnitID] [varchar](64) NOT NULL,
+[Status] [Numeric](2) NOT NULL,
+[STRDT] [varchar](25) NOT NULL,
+[ENDDT] [varchar](25),
+[TotalSecs] [Numeric](8, 2) Not Null Default 0,
+PRIMARY KEY(StockerID, UnitID, STRDT)
+);
+
+CREATE TABLE AlarmDef
+(
+AlarmType Numeric (2, 0) NOT NULL,
+AlarmCode VARCHAR(4) NOT NULL,
+AlarmID VARCHAR(10) DEFAULT' ',
+AlarmLevel Numeric (1, 0) NOT NULL,
+ReportEnable VARCHAR(250) NOT NULL DEFAULT'Y',
+AlarmDesc NVARCHAR(250) DEFAULT' ',
+AlarmDesc_EN VARCHAR(250) DEFAULT' ',
+AlarmDetail NVARCHAR(250) DEFAULT' ',
+RestoreStep NVARCHAR(500) DEFAULT' ',
+RestoreStepByUserDefine NVARCHAR(500) DEFAULT' ',
+HyperLinkPath VARCHAR(100) DEFAULT' ',
+TrnDT VARCHAR(25) NOT NULL DEFAULT' ',
+PRIMARY KEY(AlarmType,AlarmCode)
+);
+
+
+CREATE TABLE [dbo].[ALARMDATA](
+	[DeviceID] [varchar](64) NOT NULL,
+	[ALARMTYPE] [numeric](2, 0) NOT NULL DEFAULT 0,
+	[UnitID] [varchar](64) NULL Default ' ',
+	[AlarmState] [numeric](1, 0) NULL DEFAULT 0,
+	[ALARMCODE] [varchar](5) NOT NULL,
+	[StartDT] [varchar](25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+	[ENDDT] [varchar](25) NULL Default ' ',
+	[RECOVERTIME] [numeric](10, 0) NULL Default 0,
+	[ALARMTIME] [numeric](10, 0) NULL Default 0,
+	[REPORTFLAG] [varchar](1)   NULL Default 'N',
+	[ALARMLOC] [varchar](64) NULL Default ' ',
+	[COMMANDID] [varchar](64) NULL Default ' ',
+	[COMMANDID_RF] [varchar](64)  NULL Default ' ',
+        [TaskNo] [varchar](15)  NULL Default ' ',
+	[TaskNo_RF] [varchar](15)  NULL Default ' ',
+	[CSTID] [varchar](64)  NULL Default ' ',
+        [CSTID_RF] [varchar](64)  NULL Default ' ',
+	[CSTLOC] [varchar](64) NULL Default ' ',
+        [CSTLOC_RF] [varchar](64) NULL Default ' ',
+	[SOURCE] [varchar](64) NULL Default ' ',
+        [SOURCE_RF] [varchar](64) NULL Default ' ',
+	[Destination] [varchar](64) NULL Default ' ',
+        [Destination_RF] [varchar](64) NULL Default ' ',
+	[UnitStatus] [numeric](2,0) NULL Default 0,
+	[MPLCALARMINDEX] [numeric](5,0) NULL Default 0,
+	[SafeDoorOpenDT] [varchar](25) NULL Default ' ',
+	[SafeDoorClosedDT] [varchar](25) NULL Default ' ',
+	[AlarmResetDT] [varchar](25) NULL Default ' ',
+        [TrnDT] [varchar](25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+        PRIMARY KEY(DeviceID,ALARMTYPE,ALARMCODE,StartDT)
+        );
+
+CREATE TABLE DeviceDef
+(
+DeviceID VARCHAR(64) NOT NULL,
+DeviceType NUMERIC(2,0) NOT NULL,
+DeviceTypeIndex NUMERIC(2,0) NOT NULL,
+IPAddress VARCHAR(15),
+TrnDT VARCHAR(25) NOT NULL,
+PRIMARY KEY(DeviceID)
+);
+
+CREATE TABLE EQ_Alarm
+(
+[Buffer] [varchar](20) NOT NULL,
+[Alarm] [nvarchar](250) NOT NULL,
+[AlarmSts] [varchar](1) NOT NULL,
+[STRDT] [varchar](25) NOT NULL,
+[CLRDT] [varchar](25) NULL,
+[TotalSecs] [int] NULL,
+PRIMARY KEY(Buffer,Alarm,STRDT)
+);
+
+CREATE TABLE PortDef
+(
+DeviceID VARCHAR(64) NOT NULL,
+HostPortID VARCHAR(64) NOT NULL,
+PortType NUMERIC(2, 0) NOT NULL,
+PortTypeIndex NUMERIC(2, 0) NOT NULL,
+PLCPortID NUMERIC(3, 0) NOT NULL,
+AlarmType NUMERIC(2, 0) NOT NULL DEFAULT 0,
+TimeoutAutoUD NUMERIC(6, 0) NOT NULL DEFAULT 0,
+AutoUDDeviceID VARCHAR(64) DEFAULT ' ',
+AutoUDLoc VARCHAR(64) DEFAULT ' ',
+AlternateDeviceID VARCHAR(64) DEFAULT ' ',
+AlternateLoc VARCHAR(64) DEFAULT ' ',
+Remark VARCHAR(100) DEFAULT ' ',
+TrnDT VARCHAR(25) NOT NULL,
+PRIMARY KEY(DeviceID,HostPortID)
+);
+
+CREATE TABLE SHELFDef
+(
+DeviceID VARCHAR(64) NOT NULL,
+ShelfID VARCHAR(64) NOT NULL,
+TrnDT VARCHAR(25) NOT NULL,
+PRIMARY KEY(DeviceID,ShelfID)
+);
+
+CREATE TABLE Routdef
+(
+DeviceID VARCHAR(64) NOT NULL,
+HostPortID VARCHAR(64) NOT NULL,
+NextDeviceID VARCHAR(64) NOT NULL,
+NextHostPortID VARCHAR(64) NOT NULL,
+TrnDT VARCHAR(25) NOT NULL,
+PRIMARY KEY(DeviceID,HostPortID)
+);
+
+CREATE TABLE SnoCtrlDef
+(
+SnoType Varchar(20) Not NULL,
+Sno Numeric(5, 0),
+MaxSno Numeric (5, 0),
+TrnDT Varchar (25) Not NULL,
+PRIMARY KEY(SnoType)
+);
+
+CREATE TABLE Task
+(
+DeviceID VARCHAR(64) NOT NULL,
+CommandID VARCHAR(64) NOT NULL,
+TaskNo VARCHAR(15) NOT NULL,
+CraneNo NUMERIC(1, 0) DEFAULT 1,
+ForkNo NUMERIC(1, 0) DEFAULT 1,
+Priority NUMERIC(4, 0) DEFAULT 50,
+CSTID VARCHAR(64) DEFAULT '',
+CSTType VARCHAR(2) DEFAULT '',
+LotID VARCHAR(64) DEFAULT'',
+CMDInfo VARCHAR(64) DEFAULT'',
+UserID VARCHAR(20) DEFAULT'',
+TaskState NUMERIC(2, 0) Not Null DEFAULT 0,
+CompleteCode VARCHAR(2) DEFAULT'',
+CompleteIndex VARCHAR(5) DEFAULT'',
+ReNewFlag VARCHAR(1),
+FinishLocation VARCHAR(7) DEFAULT'',
+CMDState NUMERIC(2, 0) DEFAULT 0,
+TransferMode NUMERIC(2, 0) NOT NULL,
+TransferModeType VARCHAR(2) DEFAULT 00,
+Source VARCHAR(7) DEFAULT 0,
+SourceBay NUMERIC(3, 0) DEFAULT 0,
+Destination VARCHAR(7) DEFAULT 0,
+DestinationBay NUMERIC(3, 0) DEFAULT 0,
+NextDest NUMERIC(4, 0) DEFAULT 0,
+TravelAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+LifterAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+RotateAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+ForkAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+BCRReadFlag VARCHAR(1) DEFAULT 'N',
+BCRReadDT VARCHAR(25) DEFAULT'',
+BCRReplyCSTID VARCHAR(64) DEFAULT '',
+BCRReadStatus NUMERIC(1, 0) DEFAULT 9,
+QueueDT VARCHAR(25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+InitialDT VARCHAR(25) DEFAULT'',
+WaitingDT VARCHAR(25) DEFAULT'',
+ActiveDT VARCHAR(25) DEFAULT'',
+C1StartDT VARCHAR(25) DEFAULT'',
+AtSourceDT VARCHAR(25) DEFAULT'',
+F1StartDT VARCHAR(25) DEFAULT'',
+CSTOnDT VARCHAR(25) DEFAULT'',
+C2StartDT VARCHAR(25) DEFAULT'',
+AtDestinationDT VARCHAR(25) DEFAULT'',
+F2StartDT VARCHAR(25) DEFAULT'',
+CSTTakeOffDT VARCHAR(25) DEFAULT'',
+FinishDT VARCHAR(25) DEFAULT'',
+T1 NUMERIC(5, 0) DEFAULT 0,
+T2 NUMERIC(5, 0) DEFAULT 0,
+T3 NUMERIC(5, 0) DEFAULT 0,
+T4 NUMERIC(5, 0) DEFAULT 0,
+TravelDistance NUMERIC(8, 0) DEFAULT 0,
+PRIMARY KEY(DeviceID,CommandID,TaskNo)
+);
+
+CREATE TABLE HisTask
+(
+HisDT varchar(25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+DeviceID VARCHAR(64) NOT NULL,
+CommandID VARCHAR(64) NOT NULL,
+TaskNo VARCHAR(15) NOT NULL,
+CraneNo NUMERIC(1, 0) DEFAULT 1,
+ForkNo NUMERIC(1, 0) DEFAULT 1,
+Priority NUMERIC(4, 0) DEFAULT 50,
+CSTID VARCHAR(64) DEFAULT '',
+CSTType VARCHAR(2) DEFAULT '',
+LotID VARCHAR(64) DEFAULT'',
+CMDInfo VARCHAR(64) DEFAULT'',
+UserID VARCHAR(20) DEFAULT'',
+TaskState NUMERIC(2, 0) Not Null DEFAULT 0,
+CompleteCode VARCHAR(2) DEFAULT'',
+CompleteIndex VARCHAR(5) DEFAULT'',
+ReNewFlag VARCHAR(1),
+FinishLocation VARCHAR(7) DEFAULT'',
+CMDState NUMERIC(2, 0) DEFAULT 0,
+TransferMode NUMERIC(2, 0) NOT NULL,
+TransferModeType VARCHAR(2) DEFAULT 00,
+Source VARCHAR(7) DEFAULT 0,
+SourceBay NUMERIC(3, 0) DEFAULT 0,
+Destination VARCHAR(7) DEFAULT 0,
+DestinationBay NUMERIC(3, 0) DEFAULT 0,
+NextDest NUMERIC(4, 0) DEFAULT 0,
+TravelAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+LifterAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+RotateAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+ForkAxisSpeed NUMERIC(3, 0) DEFAULT 0,
+BCRReadFlag VARCHAR(1) DEFAULT 'N',
+BCRReadDT VARCHAR(25) DEFAULT'',
+BCRReplyCSTID VARCHAR(64) DEFAULT '',
+BCRReadStatus NUMERIC(1, 0) DEFAULT 9,
+QueueDT VARCHAR(25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+InitialDT VARCHAR(25) DEFAULT'',
+WaitingDT VARCHAR(25) DEFAULT'',
+ActiveDT VARCHAR(25) DEFAULT'',
+C1StartDT VARCHAR(25) DEFAULT'',
+AtSourceDT VARCHAR(25) DEFAULT'',
+F1StartDT VARCHAR(25) DEFAULT'',
+CSTOnDT VARCHAR(25) DEFAULT'',
+C2StartDT VARCHAR(25) DEFAULT'',
+AtDestinationDT VARCHAR(25) DEFAULT'',
+F2StartDT VARCHAR(25) DEFAULT'',
+CSTTakeOffDT VARCHAR(25) DEFAULT'',
+FinishDT VARCHAR(25) DEFAULT'',
+T1 NUMERIC(5, 0) DEFAULT 0,
+T2 NUMERIC(5, 0) DEFAULT 0,
+T3 NUMERIC(5, 0) DEFAULT 0,
+T4 NUMERIC(5, 0) DEFAULT 0,
+TravelDistance NUMERIC(8, 0) DEFAULT 0,
+PRIMARY KEY(DeviceID,CommandID,TaskNo)
+);
+
+CREATE TABLE SNO_CTL
+(
+TrnDate	Varchar(8) NOT NULL,
+SnoTyp	Varchar(8) NOT NULL,
+Sno		Numeric(8) NOT NULL Default 1,
+Primary Key(SnoTyp)
+);
+
+CREATE TABLE SNO_MAX
+(
+Sno_Type	Varchar (10)	Not Null,	
+Month_Flag	Varchar (1)		Default 'N',
+Init_Sno	Numeric(10)		Default 1,
+Max_Sno		Numeric(10),		
+Sno_Len		Numeric(2)		Default 5,
+Primary Key(Sno_Type)
+);
+
+CREATE TABLE CMD_MST
+(
+CmdSno			Varchar(5) NOT NULL,
+CmdSts			Varchar(1) NOT NULL,		
+PRT				Varchar(1) NOT NULL		Default '5',
+Cmd_Abnormal	Varchar(2) NOT NULL		Default 'NA',
+StnNo			NVarchar(MAX) NOT NULL  Default '',
+CmdMode			Varchar(1)  NOT NULL,
+Iotype			Varchar(2)  NOT NULL     Default '',
+Loc				Varchar(7)  NOT NULL     Default '',		
+NewLoc			Varchar(7)  Not Null     Default '',
+CrtDate			Varchar(20) Not Null     Default '',	
+ExpDate			Varchar(20) Not Null     Default '',	
+EndDate			Varchar(20) Not Null     Default '',
+UserID			Varchar(20),	
+BoxId			NVarchar(350) Not Null,
+EquNO			Varchar(2)  NOT NULL,		
+CurLoc			Varchar(60) Not Null     Default '',	
+CurDeviceID     Varchar(2)  Not Null     Default '',
+JobID           NVarchar(MAX) NOT NULL  Default '',
+BatchID         NVarchar(MAX) NOT NULL  Default '',
+ZoneID          NVarchar(MAX) NOT NULL  Default '',
+Remark          NVarchar(MAX) Not Null  Default '',
+NeedShelfToShelf Varchar(1)   Not Null  Default 'N',
+backupPortId    NVarchar(MAX) NOT NULL  Default '',
+ticketId        Varchar(MAX) Not Null default '',
+manualStockIn	Varchar(1)   Not Null  Default 'N',
+Primary Key(CmdMode, BoxId)
+);
+
+CREATE TABLE CMD_MST_His
+(
+HisDT varchar(25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+CmdSno			Varchar(5) NOT NULL,
+CmdSts			Varchar(1) NOT NULL,		
+PRT				Varchar(1) NOT NULL		Default '5',
+Cmd_Abnormal	Varchar(2) NOT NULL		Default 'NA',
+StnNo			NVarchar(MAX) NOT NULL  Default '',
+CmdMode			Varchar(1)  NOT NULL,
+Iotype			Varchar(2)  NOT NULL     Default '',
+Loc				Varchar(7)  NOT NULL     Default '',		
+NewLoc			Varchar(7)  Not Null     Default '',
+CrtDate			Varchar(20) Not Null     Default '',	
+ExpDate			Varchar(20) Not Null     Default '',	
+EndDate			Varchar(20) Not Null     Default '',
+UserID			Varchar(20),	
+BoxId			NVarchar(350) Not Null,
+EquNO			Varchar(2)  NOT NULL,		
+CurLoc			Varchar(60) Not Null     Default '',	
+CurDeviceID     Varchar(2)  Not Null     Default '',
+JobID           NVarchar(MAX) NOT NULL  Default '',
+BatchID         NVarchar(MAX) NOT NULL  Default '',
+ZoneID          NVarchar(MAX) NOT NULL  Default '',
+Remark          NVarchar(MAX) Not Null  Default '',
+NeedShelfToShelf Varchar(1)   Not Null  Default 'N',
+backupPortId    NVarchar(MAX) NOT NULL  Default '',
+ticketId        Varchar(MAX) Not Null default '',
+manualStockIn	Varchar(1)   Not Null  Default 'N'
+);
+
+Create Table Teach_Loc
+(
+DeviceID VARCHAR(64)   NOT NULL,
+Loc		 Varchar(7)    NOT NULL,
+LocSts	 Varchar(1)    NOT NULL Default 'N',
+OldSts	 Varchar(1)    NOT NULL Default 'N',
+BoxId	 NVarchar(350) Not Null Default '',
+TrnDate  VARCHAR(25) NOT NULL Default CONVERT([VARCHAR], GETDATE(), (121)),
+Primary Key(DeviceID, Loc)
+);
+
+CREATE TABLE [dbo].[r_wms_location] (
+  [ID] bigint NOT NULL,
+  [ORG_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [LOCATION_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [LOCATION_TYPE] nvarchar(10) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [TEMP_UPPER_LIMIT] float(53)  NULL,
+  [TEMP_LOWER_LIMIT] float(53)  NULL,
+  [RH_UPPER_LIMIT] float(53)  NULL,
+  [RH_LOWER_LIMIT] float(53)  NULL,
+  [DEFAULT_SUB_INV_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [DEFAULT_LOCATOR_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BUILDING] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+  [FLOOR] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+  [AREA] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+  [SHELF] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [ROW] nvarchar(5) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BAY] nvarchar(5) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LEVEL] nvarchar(5) COLLATE Chinese_PRC_CI_AS  NULL,
+  [ZONE] nvarchar(10) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CRANE] nvarchar(10) COLLATE Chinese_PRC_CI_AS  NULL,
+  [IS_INSIDE] nchar(1) COLLATE Chinese_PRC_CI_AS DEFAULT 'Y' NOT NULL,
+  [STORAGE_STATUS] nvarchar(7) COLLATE Chinese_PRC_CI_AS DEFAULT 'NULL' NOT NULL,
+  [OPERATE_STATUS] nvarchar(8) COLLATE Chinese_PRC_CI_AS DEFAULT 'NORMAL' NOT NULL,
+  [BROTHER_LOCATION_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_BY] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CREATE_TIME] datetime2(7)  NOT NULL,
+  [UPDATE_BY] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [UPDATE_TIME] datetime2(7)  NOT NULL,
+  [DEL_FLAG] int  NOT NULL,
+  [REVISION] int  NULL,
+  [IS_TURNOVER] nchar(1) COLLATE Chinese_PRC_CI_AS DEFAULT 'N' NOT NULL,
+  [CAN_BATCH] nchar(1) COLLATE Chinese_PRC_CI_AS DEFAULT 'Y' NOT NULL,
+  [CARRIER_CODE] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  CONSTRAINT [PK__c_wms_lo__3214EC277744A27A] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+)  
+ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[r_wms_location] SET (LOCK_ESCALATION = TABLE)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_DEFAULT_SUB_INV_CODE]
+ON [dbo].[r_wms_location] (
+  [DEFAULT_SUB_INV_CODE] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_DEFAULT_LOCATOR_CODE]
+ON [dbo].[r_wms_location] (
+  [DEFAULT_LOCATOR_CODE] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_ORG_CODE]
+ON [dbo].[r_wms_location] (
+  [ORG_CODE] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_STATUS]
+ON [dbo].[r_wms_location] (
+  [STORAGE_STATUS] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_OPERATE_STATUS]
+ON [dbo].[r_wms_location] (
+  [OPERATE_STATUS] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_LOCATION_LOCATION_CODE]
+ON [dbo].[r_wms_location] (
+  [LOCATION_CODE] ASC
+)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'ID',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'库区',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'ORG_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'储位编码',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'LOCATION_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'储位类型:立仓、平面仓、自动仓',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'LOCATION_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'温度上限',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'TEMP_UPPER_LIMIT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'温度下限',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'TEMP_LOWER_LIMIT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'湿度上限',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'RH_UPPER_LIMIT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'湿度下限',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'RH_LOWER_LIMIT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'仓别',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'DEFAULT_SUB_INV_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'架位',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'DEFAULT_LOCATOR_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'建筑物',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'BUILDING'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'楼层',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'FLOOR'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'区域',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'AREA'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'货架',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'SHELF'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'X轴行数',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'X_AXIS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'Y轴行数',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'Y_AXIS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'Z轴行数',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'Z_AXIS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'ZONE区域',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'ZONE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'CRANEID',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'CRANE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否内储位:Y/N',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'IS_INSIDE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'存储状态：空储位NULL、空料盒EMPTY、不满板NOTFULL、满板FULL',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'STORAGE_STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作状态：正常NORMAL、异常ABNORMAL、禁用DISABLE、保留RETAIN、出库预约OUT、入库预约INT',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'OPERATE_STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'兄弟储位编码',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'BROTHER_LOCATION_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'CREATE_BY'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'UPDATE_BY'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'删除标记',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'DEL_FLAG'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'乐观锁',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'REVISION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否周转储位:Y/N',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'IS_TURNOVER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否可以批量搬运:Y/N',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'CAN_BATCH'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'储位编码',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location',
+'COLUMN', N'CARRIER_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'储位',
+'SCHEMA', N'dbo',
+'TABLE', N'r_wms_location'

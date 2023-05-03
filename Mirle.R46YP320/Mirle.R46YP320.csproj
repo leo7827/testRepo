@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5821312D-EC36-4744-A32A-41ECB1ADCE13}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Mirle.R46YP320</RootNamespace>
+    <AssemblyName>TaskAgent</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TaskAgent.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Config.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d836a57afd299520, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Config.Net.4.13.7\lib\netstandard2.0\Config.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Host.HttpListener.4.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Hosting.4.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirle, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\Mirle.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirle.LCS, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\Mirle.LCS.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirle.STKC, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\Mirle.STKC.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirle.Stocker, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\Mirle.Stocker.dll</HintPath>
+    </Reference>
+    <Reference Include="MPLC, Version=1.1.1906.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dll\MPLC.dll</HintPath>
+    </Reference>
+    <Reference Include="MPLC.Interface, Version=1.3.1908.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPLC.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="MPLC.MxAdapter, Version=1.3.1908.3, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPLC.MxAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="MPLC.NetMQ, Version=1.3.1908.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPLC.NetMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Unity.5.11.2\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Unity.5.11.2\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="STK\DaifukuSpec.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CassetteIDReadEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierInstallCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierRemoveCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierResumedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierStoredEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierStoredAltEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierWaitInEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierArrivedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierWaitOutEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CraneArrivedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ForkStatusEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CraneServiceStatusEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\AlarmClearedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\AlarmReportEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\AlarmSetEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierIDReadEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierRemovedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierStatusEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CarrierTransferringEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ControlModeEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CraneStatusEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\OperatorInitiatedActionEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\PortStateEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\SCInitEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\SCStateEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\IDReadErrorEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\PriorityUpdateFailedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ScanInitiatedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ScanCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferAbortInitiatedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferCancelCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferCancelFailedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferCancelInitiatedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferPausedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferResumedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferInitiatedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\PriorityUpdateCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\UnitAlarmEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ZoneCapacityChangeEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferAbortCompletedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\TransferAbortFailedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\DivergenceFailedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\CassetteDivergenceFailedEventArgs.cs" />
+    <Compile Include="STK\DataCollectionEventArgs\ZoneShelfStateChangedEventArgs.cs" />
+    <Compile Include="STK\MCSStocker.cs" />
+    <Compile Include="STK\MCS\Crane.cs" />
+    <Compile Include="STK\MCS\Fork.cs" />
+    <Compile Include="STK\TaskAgent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STK\TaskAgent.Designer.cs">
+      <DependentUpon>TaskAgent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STK\TaskController.cs" />
+    <Compile Include="STK\TaskService\AlarmProcessService.cs" />
+    <Compile Include="STK\MCS\MCSCrane.cs" />
+    <Compile Include="STK\TaskService\Carrier.cs" />
+    <Compile Include="STK\TaskService\DataCollectionEventsService.cs" />
+    <Compile Include="STK\TaskService\EnhancedRemoteCommandService.cs" />
+    <Compile Include="STK\TaskService\HostCommandService.cs" />
+    <Compile Include="STK\MCS\MCSIOPort.cs" />
+    <Compile Include="STK\TaskService\RepositoriesService.cs" />
+    <Compile Include="STK\TaskService\Scenario.cs" />
+    <Compile Include="STK\TaskService\SelectedEquipmentStatusService.cs" />
+    <Compile Include="STK\TaskService\SelectTask.cs" />
+    <Compile Include="STK\TaskService\SignalCommand.cs" />
+    <Compile Include="STK\TaskService\StockerMPLCEventService.cs" />
+    <Compile Include="STK\TaskService\TaskProcessService.cs" />
+    <Compile Include="STK\TaskService\UpdateProcessService.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="STK\TaskAgent.resx">
+      <DependentUpon>TaskAgent.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\logo.gif" />
+    <None Include="Resources\logo1.gif" />
+    <None Include="Resources\logo.ico" />
+    <Content Include="Resources\TaskAgent.ico" />
+    <Content Include="TaskAgent.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mirle.STKC.R46YP320\Mirle.STKC.R46YP320.csproj">
+      <Project>{d594956b-6893-42ad-946e-64f280da75d5}</Project>
+      <Name>Mirle.STKC.R46YP320</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.Stocker.R46YP320\Mirle.Stocker.R46YP320.csproj">
+      <Project>{371bf0f8-e177-48c0-946d-bf7cad9474c7}</Project>
+      <Name>Mirle.Stocker.R46YP320</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.Stocker.TaskControl\Mirle.Stocker.TaskControl.csproj">
+      <Project>{511c71d4-635b-491d-969c-cd076d4a6487}</Project>
+      <Name>Mirle.Stocker.TaskControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.Structure\Mirle.Structure.csproj">
+      <Project>{0a0d222e-0c76-4838-a8b1-6ca6f26cb225}</Project>
+      <Name>Mirle.Structure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="..\Config.R46YP320\Config.R46YP320.projitems" Label="Shared" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

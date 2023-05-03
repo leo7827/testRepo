@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{371BF0F8-E177-48C0-946D-BF7CAD9474C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mirle.Stocker.R46YP320</RootNamespace>
+    <AssemblyName>Mirle.Stocker.R46YP320</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IStocker.cs" />
+    <Compile Include="Micron\Crane.cs" />
+    <Compile Include="CraneCmdInfo.cs" />
+    <Compile Include="CraneReqAckController.cs" />
+    <Compile Include="Micron\EQPort.cs" />
+    <Compile Include="Events\AlarmEventArgs.cs" />
+    <Compile Include="Events\CraneEventArgs.cs" />
+    <Compile Include="Events\EQEventArgs.cs" />
+    <Compile Include="Events\ForkEventArgs.cs" />
+    <Compile Include="Events\IOEventArgs.cs" />
+    <Compile Include="Events\IOStageEventArgs.cs" />
+    <Compile Include="Events\IOVehicleEventArgs.cs" />
+    <Compile Include="Events\ReqAckEventArgs.cs" />
+    <Compile Include="Events\StockerEventArgs.cs" />
+    <Compile Include="Events\StockerEvents.cs" />
+    <Compile Include="Extensions\StringHelper.cs" />
+    <Compile Include="Micron\Fork.cs" />
+    <Compile Include="ICrane.cs" />
+    <Compile Include="IEQPort.cs" />
+    <Compile Include="IFork.cs" />
+    <Compile Include="IIOPort.cs" />
+    <Compile Include="IIOStage.cs" />
+    <Compile Include="IIOVehicle.cs" />
+    <Compile Include="Micron\IOPort.cs" />
+    <Compile Include="Micron\IOStage.cs" />
+    <Compile Include="Micron\IOVehicle.cs" />
+    <Compile Include="Micron\CSOTStocker.cs" />
+    <Compile Include="LCSEnums.cs" />
+    <Compile Include="MPLCViewController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalMapper.cs" />
+    <Compile Include="Signal\AreaSensorSignal.cs" />
+    <Compile Include="Signal\CraneAckSignal.cs" />
+    <Compile Include="Signal\CraneControllerSignal.cs" />
+    <Compile Include="Signal\CraneMotorSignal.cs" />
+    <Compile Include="Signal\CraneRequestSignal.cs" />
+    <Compile Include="Signal\CraneSignal.cs" />
+    <Compile Include="Signal\CraneSRISignal.cs" />
+    <Compile Include="Signal\DataLinkStatusSignal.cs" />
+    <Compile Include="Signal\EQCommonSignal.cs" />
+    <Compile Include="Signal\EQPortSignal.cs" />
+    <Compile Include="Signal\ForkSignal.cs" />
+    <Compile Include="Signal\IOPortControllerSignal.cs" />
+    <Compile Include="Signal\IOPortSignal.cs" />
+    <Compile Include="Signal\IOSRISignal.cs" />
+    <Compile Include="Signal\IOStageSignal.cs" />
+    <Compile Include="Signal\IOVehicleControllerSignal.cs" />
+    <Compile Include="Signal\IOVehicleSignal.cs" />
+    <Compile Include="Signal\StockerControllerSignal.cs" />
+    <Compile Include="Signal\StockerSignal.cs" />
+    <Compile Include="StockerController.cs" />
+    <Compile Include="StockerEnums.cs" />
+    <Compile Include="View\MonitorCrane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MonitorCrane.Designer.cs">
+      <DependentUpon>MonitorCrane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonitorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MonitorMainForm.Designer.cs">
+      <DependentUpon>MonitorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonitorPort.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MonitorPort.Designer.cs">
+      <DependentUpon>MonitorPort.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\MonitorCrane.resx">
+      <DependentUpon>MonitorCrane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MonitorMainForm.resx">
+      <DependentUpon>MonitorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MonitorPort.resx">
+      <DependentUpon>MonitorPort.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Config.Net">
+      <Version>4.15.0</Version>
+    </PackageReference>
+    <PackageReference Include="Mirle">
+      <Version>1.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Mirle.MPLC.MCProtocol">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Mirle.MPLC.MXComponent">
+      <Version>1.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mirle.Structure\Mirle.Structure.csproj">
+      <Project>{0a0d222e-0c76-4838-a8b1-6ca6f26cb225}</Project>
+      <Name>Mirle.Structure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
