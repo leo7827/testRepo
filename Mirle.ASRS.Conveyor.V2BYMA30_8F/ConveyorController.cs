@@ -37,7 +37,7 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
         private ThreadWorker _Refresh;
         private ThreadWorker _Buffer;
         private ThreadWorker _ErrorIndex;
-        //private ThreadWorker _ModeChange;
+        private ThreadWorker _ModeChange;
 
         private IPLCHost _plcHost;
         private IMPLCProvider _mplc;
@@ -151,8 +151,8 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
             _CalibrateSystemTime = new ThreadWorker(CalibrateSystemTime, 1000, true);
             _Refresh = new ThreadWorker(Refresh, 500, true);
             _Buffer = new ThreadWorker(RefreshBuffer, 500, true);
-            _ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
-            //_ModeChange = new ThreadWorker(ModeChange, 500, true);
+            //_ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
+            _ModeChange = new ThreadWorker(ModeChange, 500, true);
         }
 
         public void Pause()
@@ -215,22 +215,7 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
                 ctrl.ModeChange.SetValue(0);
             }
         }
-
-        public bool WriteModeChange(int index)
-        {
-            var ctrl = _Signal.GetConveyorSignal().Controller;
-            try
-            {
-                ctrl.ModeChange.SetValue(index);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _LoggerService.WriteExceptionLog(MethodBase.GetCurrentMethod(), $"{ex.Message}\n{ex.StackTrace}");
-                return false;
-            }
-        }
+       
 
         public void ErrorIndex()
         {
@@ -243,6 +228,22 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
                 ctrl.ErrorIndex.SetValue(0);
             }
 
+        }
+
+        public bool WriteElevatorMode(int value)
+        {
+            var ctrl = _Signal.GetConveyorSignal().Controller;
+            try
+            {
+                ctrl.ModeChange.SetValue(value);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _LoggerService.WriteExceptionLog(MethodBase.GetCurrentMethod(), $"{ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
         }
 
         private void RefreshBuffer()

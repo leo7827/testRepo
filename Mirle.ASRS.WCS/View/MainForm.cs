@@ -12,6 +12,7 @@
 ///    2023/01/07       力升      	V 1.0.0.3      滾出的時候不看有沒有這筆命令
 ///    2023/01/17       力升      	V 1.0.0.4      新增OPC  
 ///    2023/04/20       力升      	V 1.0.0.5      改寫 OPC的做法為 call web service , ini 通知由word 改成 bit
+///    2023/05/03       力升      	V 1.0.0.6      新增外部可以呼叫電梯
 #endregion Header
 
 
@@ -54,8 +55,10 @@ namespace Mirle.ASRS.WCS.View
         public static cls10F_Proc Conveyor10F_Proc = new cls10F_Proc();
 
         public static clsAlarm_Proc Alarm_Proc = new clsAlarm_Proc();
+        public static clsAlarm_Proc_8F Alarm_Proc_8F = new clsAlarm_Proc_8F();
+        public static clsAlarm_Proc_10F Alarm_Proc_10F = new clsAlarm_Proc_10F();
         public static clsCmdDestinationCheck_Proc CmdDestinationCheck_Proc = new clsCmdDestinationCheck_Proc();
-        //public static clsBcrScanProc_Proc BcrScanProc_Proc = new clsBcrScanProc_Proc();
+         
 
         public static clsEMPTY_BIN_LOAD_REQUEST_Proc EMPTY_BIN_LOAD_REQUEST_Proc = new clsEMPTY_BIN_LOAD_REQUEST_Proc();
 
@@ -70,6 +73,10 @@ namespace Mirle.ASRS.WCS.View
 
         //private clsOPCStart OPCRun = new clsOPCStart();
         private clsOPCWebService OPCRun = new clsOPCWebService();
+
+        //V 1.0.0.6
+        public static clsPLCModeChange_Proc PLCModeChange_Proc = new clsPLCModeChange_Proc();
+        public static clsPLCModeChange_Proc_10F PLCModeChange_Proc_10F = new clsPLCModeChange_Proc_10F();
 
         public MainForm()
         {
@@ -483,7 +490,7 @@ namespace Mirle.ASRS.WCS.View
             clsDB_Proc.Initial(Application.StartupPath + "\\Sqlite\\", "LCSCODE.db");
 
             clsLiteOnCV.FunInitalCVController(clInitSys.CV_Config_8F, 1);
-            clsLiteOnCV.FunInitalCVController(clInitSys.CV_Config_10F, 2);            
+            clsLiteOnCV.FunInitalCVController(clInitSys.CV_Config_10F, 2);
             clsLiteOnCV.FunInitalCVController(clInitSys.CV_Config_Ele, 3);
 
             clsWmsApi.FunInit(clInitSys.WcsApi_Config);
@@ -495,12 +502,16 @@ namespace Mirle.ASRS.WCS.View
 
             EMPTY_BIN_LOAD_REQUEST_Proc.subStart();
 
-            //Alarm_Proc.subStart();
+            Alarm_Proc.subStart();
+            Alarm_Proc_8F.subStart();
+            Alarm_Proc_10F.subStart();
             Elevator_OpenAndRoll_Proc.subStart();
             ElevatorCommand_UpDown_Proc.subStart();
-            Conveyor8F_Proc.subStart();           
+            Conveyor8F_Proc.subStart();
             Conveyor10F_Proc.subStart();
 
+            PLCModeChange_Proc.subStart();
+            PLCModeChange_Proc_10F.subStart();
             //CmdDestinationCheck_Proc.subStart();
 
             _unityContainer = new UnityContainer();

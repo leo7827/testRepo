@@ -61,6 +61,7 @@
     <Compile Include="Function\EMPTY_BIN_LOAD_DONE.cs" />
     <Compile Include="Function\PositionReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportInfo\Alarm_Happen_Info_Response.cs" />
     <Compile Include="ReportInfo\ALARM_HAPPEN_REPORTInfo.cs" />
     <Compile Include="ReportInfo\BCR_CHECK_REQUESTInfo.cs" />
     <Compile Include="ReportInfo\BCR_CHECK_REQUESTInfo_Response.cs" />

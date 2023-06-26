@@ -142,6 +142,7 @@
   <ItemGroup>
     <EmbeddedResource Include="MPLCView\BufferPlcInfoView.resx">
       <DependentUpon>BufferPlcInfoView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MPLCView\MonitorLayout.resx">
       <DependentUpon>MonitorLayout.cs</DependentUpon>
@@ -155,6 +156,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\BufferPlcInfoView.resx">
       <DependentUpon>BufferPlcInfoView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>

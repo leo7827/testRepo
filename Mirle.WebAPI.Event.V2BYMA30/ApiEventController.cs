@@ -492,5 +492,68 @@ namespace Mirle.WebAPI.Event.V2BYMA30
             }
         }
 
+
+
+        [Route("LIFT4C/ALARM_HAPPEN_REPORT")]
+        [HttpPost]
+        public IHttpActionResult ALARM_HAPPEN_REPORT([FromBody] EMPTY_BIN_LOAD_Done_INFO Body)
+        {
+
+            ReturnEMPTY_BIN_LOAD_Done_INFO rMsg = new ReturnEMPTY_BIN_LOAD_Done_INFO
+            {
+                jobId = Body.jobId,
+                transactionId = "EMPTY_BIN_LOAD_DONE",
+            };
+
+            clsWriLog.Log.FunWriTraceLog_CV($"<{Body.location}>EMPTY_BIN_LOAD_DONE start!");
+            int iFloor = 0;
+
+            try
+            {
+                if (Body.location != "LO1-07")
+                {
+                    rMsg.returnCode = clsConstValue.ApiReturnCode.Fail;
+                    rMsg.returnComment = "不正常";
+                    clsWriLog.Log.FunWriTraceLog_CV($"<{Body.location}> EMPTY_BIN_LOAD_DONE 的站點不為 LO1-07!");
+                    return Json(rMsg);
+
+                }
+
+                ConveyorInfo buffer = clsLiteOnCV.GetBufferByStnNo(Body.location, ref iFloor);
+
+                var cv = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer.Index);
+
+                int iCurrentPCValue = cv.CallEmptyQty_PC;
+                int iCurrentPLCValue = cv.CallEmptyQty;
+
+                iCurrentPCValue += 1;
+                if (!cv.WriteEmptyQty(iCurrentPCValue).Result)
+                {
+                    rMsg.returnCode = clsConstValue.ApiReturnCode.Fail;
+                    rMsg.returnComment = "不正常";
+                    return Json(rMsg);
+                }
+
+                rMsg.returnCode = clsConstValue.ApiReturnCode.Success;
+                rMsg.returnComment = "正常";
+                clsWriLog.Log.FunWriTraceLog_CV($"<{Body.location}> 目前PC 記數 <{iCurrentPCValue}>");
+                clsWriLog.Log.FunWriTraceLog_CV($"<{Body.location}>EMPTY_BIN_LOAD_DONE end!");
+                return Json(rMsg);
+            }
+            catch (Exception ex)
+            {
+                rMsg.returnCode = clsConstValue.ApiReturnCode.Fail;
+                rMsg.returnComment = ex.Message;
+
+                var cmet = System.Reflection.MethodBase.GetCurrentMethod();
+                clsWriLog.Log.subWriteExLog(cmet.DeclaringType.FullName + "." + cmet.Name, ex.Message + "\n(" + ex.StackTrace + ")");
+                return Json(rMsg);
+            }
+            finally
+            {
+
+            }
+        }
+
     }
 }

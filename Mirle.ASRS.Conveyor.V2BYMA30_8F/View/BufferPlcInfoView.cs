@@ -144,6 +144,9 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F.View
                         lblBcrCheckRequestNotice_PC.Text = conveyorController.GetBuffer(StnIdx).BcrCheckRequestNotice_PC.ToString();
                         lblTransferReportNotice_PC.Text = conveyorController.GetBuffer(StnIdx).TransferReportNotice_PC.ToString();
                         //clsTool.Signal_Show(conveyorController.GetBuffer(StnIdx).IsManualPutaway, ref lblManualPutaway);
+
+                        //lblLittle_3.Text = conveyorController.Signal.Controller.ErrorIndex.GetValue().ToString();
+                        //lblLittle_7.Text = conveyorController.Signal.ErrorIndex.GetValue().ToString();
                     }
                 }
             }

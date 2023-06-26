@@ -101,6 +101,9 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator.View
                         lblElevatorNotice_PC.Text = conveyorController.Signal.Controller.Path.GetValue().ToString();
                         lblDoorNotice_PC.Text = conveyorController.Signal.Controller.DoorNoticce.GetValue().ToString();
                         //clsTool.Signal_Show(conveyorController.GetBuffer(StnIdx).IsManualPutaway, ref lblManualPutaway);
+
+                        lblLittle_4.Text = conveyorController.Signal.Controller.ErrorIndex.GetValue().ToString();
+                        lblLittle_8.Text = conveyorController.Signal.ErrorIndex.GetValue().ToString();
                     }
                 }
             }

@@ -11,11 +11,11 @@ using Mirle.WebAPI.V2BYMA30.ReportInfo;
 
 namespace Mirle.ASRS.WCS
 {
-    public class clsPLCModeChange_Proc
+    public class clsPLCModeChange_Proc_10F
     {
-        public bool b8F_PC = false;
+        public bool b10F_PC = false;
         private System.Timers.Timer timRead = new System.Timers.Timer();
-        public clsPLCModeChange_Proc()
+        public clsPLCModeChange_Proc_10F()
         {
             timRead.Elapsed += new System.Timers.ElapsedEventHandler(timRead_Elapsed);
             timRead.Enabled = false; timRead.Interval = 1000;
@@ -40,12 +40,10 @@ namespace Mirle.ASRS.WCS
                 bool bEleElevatorIsUp = clsLiteOnCV.CheckElevatorIsUp();
                 bool bEleElevatorIsDown = clsLiteOnCV.CheckElevatorIsDown();
 
-                //各樓層
-                int iModeStatus_8F = clsLiteOnCV.GetConveyorController_8F().Signal.ModeStatus.GetValue();
-                int iModeStatus_PC_8F = clsLiteOnCV.GetConveyorController_8F().Signal.Controller.ModeChange.GetValue();
+                //各樓層                
 
-                //int iModeStatus_10F = clsLiteOnCV.GetConveyorController_10F().Signal.ModeStatus.GetValue();
-                //int iModeStatus_PC_10F = clsLiteOnCV.GetConveyorController_10F().Signal.Controller.ModeChange.GetValue();
+                int iModeStatus_10F = clsLiteOnCV.GetConveyorController_10F().Signal.ModeStatus.GetValue();
+                int iModeStatus_PC_10F = clsLiteOnCV.GetConveyorController_10F().Signal.Controller.ModeChange.GetValue();
 
                 if (iDoorStatus != 1)
                 {
@@ -57,23 +55,23 @@ namespace Mirle.ASRS.WCS
                     return;
                 }
 
-                //8樓交握
-                if (iModeStatus_8F == 1 && iModeStatus_PC_8F == 0 && !b8F_PC)
+                //10樓交握
+                if (iModeStatus_10F == 1 && iModeStatus_PC_10F == 0 && !b10F_PC)
                 {
-                    clsLiteOnCV.GetConveyorController_8F().WriteElevatorMode(1);
-                    b8F_PC = true;
+                    clsLiteOnCV.GetConveyorController_10F().WriteElevatorMode(1);
+                    b10F_PC = true;
                     return;
                 }
 
                 //電梯交握
-                if (b8F_PC && iModeStatus_Ele  == 0 && iModeStatus_PC_Ele ==0)
+                if (b10F_PC && iModeStatus_Ele == 0 && iModeStatus_PC_Ele == 0)
                 {
                     clsLiteOnCV.GetConveyorController_Elevator().WriteElevatorMode(1);
-                    clsWriLog.Log.FunWriTraceLog_CV($"<8F手動切換電梯模式> ！ ");
-                    b8F_PC = false;
+                    clsWriLog.Log.FunWriTraceLog_CV($"<10F手動切換電梯模式> ！ ");
+                    b10F_PC = false;
                     return;
                 }
-            
+
             }
             catch (Exception ex)
             {
@@ -86,7 +84,5 @@ namespace Mirle.ASRS.WCS
                 timRead.Enabled = true;
             }
         }
-
-
     }
 }

@@ -174,7 +174,21 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator
             }
         }
 
+        public bool WriteElevatorMode(int value)
+        {
+            var ctrl = _Signal.GetConveyorSignal().Controller;
+            try
+            {
+                ctrl.ModeChange.SetValue(value);
 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _LoggerService.WriteExceptionLog(MethodBase.GetCurrentMethod(), $"{ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
+        }
 
         public void Start()
         {
@@ -182,13 +196,13 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator
 
             _Heartbeat = new ThreadWorker(Heartbeat, 300, true);
             _CalibrateSystemTime = new ThreadWorker(CalibrateSystemTime, 1000, true);
-            _Refresh = new ThreadWorker(Refresh, 500, true);
+            //_Refresh = new ThreadWorker(Refresh, 500, true);
             _Buffer = new ThreadWorker(RefreshBuffer, 500, true);
 
-            _Door = new ThreadWorker(Door_Clear, 500, true); 
+            _Door = new ThreadWorker(Door_Clear, 500, true);
             _Floor = new ThreadWorker(Floor_Clear, 500, true);
-            _ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
-            //_ModeChange = new ThreadWorker(ModeChange, 500, true);
+            //_ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
+            _ModeChange = new ThreadWorker(ModeChange, 500, true);
 
 
         }
@@ -265,28 +279,11 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator
                 return;
             var plc = _Signal.GetConveyorSignal();
             var ctrl = _Signal.GetConveyorSignal().Controller;
-            if (plc.ModeStatus.GetValue() == ctrl.ModeChange.GetValue())
+            if (plc.ModeStatus.GetValue() ==1 && ctrl.ModeChange.GetValue() ==1)
             {
                 ctrl.ModeChange.SetValue(0);
             }
-        }
-
-        public bool WriteModeChange(int index)
-        {
-            var ctrl = _Signal.GetConveyorSignal().Controller;
-            try
-            {
-                ctrl.ModeChange.SetValue(index);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _LoggerService.WriteExceptionLog(MethodBase.GetCurrentMethod(), $"{ex.Message}\n{ex.StackTrace}");
-                return false;
-            }
-        }
-
+        } 
 
         public bool WriteErrorIndex(int index)
         {

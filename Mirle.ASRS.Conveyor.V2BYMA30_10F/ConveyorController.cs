@@ -149,7 +149,7 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_10F
             _Heartbeat = new ThreadWorker(Heartbeat, 300, true);
             _CalibrateSystemTime = new ThreadWorker(CalibrateSystemTime, 1000, true);
             //_Refresh = new ThreadWorker(Refresh, 500, true);
-            _ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
+            //_ErrorIndex = new ThreadWorker(ErrorIndex, 500, true);
             _Buffer = new ThreadWorker(RefreshBuffer, 500, true);
             _ModeChange = new ThreadWorker(ModeChange, 500, true);
         }
@@ -209,10 +209,10 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_10F
                 return;
             var plc = _Signal.GetConveyorSignal();
             var ctrl = _Signal.GetConveyorSignal().Controller;
-            if (plc.ModeStatus.GetValue() == ctrl.ModeChange.GetValue())
+            if (plc.ModeStatus.GetValue() == 0 && ctrl.ModeChange.GetValue() == 1)
             {
                 ctrl.ModeChange.SetValue(0);
-            }
+            } 
         }
 
         public void ErrorIndex()
@@ -226,6 +226,22 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_10F
                 ctrl.ErrorIndex.SetValue(0);
             }
 
+        }
+
+        public bool WriteElevatorMode(int value)
+        {
+            var ctrl = _Signal.GetConveyorSignal().Controller;
+            try
+            {
+                ctrl.ModeChange.SetValue(value);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _LoggerService.WriteExceptionLog(MethodBase.GetCurrentMethod(), $"{ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
         }
 
         private void RefreshBuffer()
