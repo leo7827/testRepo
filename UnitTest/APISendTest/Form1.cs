@@ -157,7 +157,7 @@ namespace APISendTest
             {
                 jobId = "123",
                 deviceId = "LO2",
-                alarmCode = "7",
+                alarmCode = "0070",
                 alarmDef = "10F",
                 bufferId = "test",
                 status = "0",

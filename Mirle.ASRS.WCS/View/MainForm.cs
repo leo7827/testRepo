@@ -58,7 +58,9 @@ namespace Mirle.ASRS.WCS.View
         public static clsAlarm_Proc_8F Alarm_Proc_8F = new clsAlarm_Proc_8F();
         public static clsAlarm_Proc_10F Alarm_Proc_10F = new clsAlarm_Proc_10F();
         public static clsCmdDestinationCheck_Proc CmdDestinationCheck_Proc = new clsCmdDestinationCheck_Proc();
-         
+        public static clsHB_Proc_Elevator HB_Proc_Elevator = new clsHB_Proc_Elevator();
+        public static clsHB_Proc_8F HB_Proc_8F = new clsHB_Proc_8F();
+        public static clsHB_Proc_10F HB_Proc_10F = new clsHB_Proc_10F();
 
         public static clsEMPTY_BIN_LOAD_REQUEST_Proc EMPTY_BIN_LOAD_REQUEST_Proc = new clsEMPTY_BIN_LOAD_REQUEST_Proc();
 
@@ -510,15 +512,19 @@ namespace Mirle.ASRS.WCS.View
             Conveyor8F_Proc.subStart();
             Conveyor10F_Proc.subStart();
 
+            HB_Proc_Elevator.subStart();
+            HB_Proc_8F.subStart();
+            HB_Proc_10F.subStart();
+
             PLCModeChange_Proc.subStart();
             PLCModeChange_Proc_10F.subStart();
-            //CmdDestinationCheck_Proc.subStart();
+          
 
             _unityContainer = new UnityContainer();
             _unityContainer.RegisterInstance(new WCSController());
             _webApiHost = new WebApiHost(new Startup(_unityContainer), clInitSys.LocalApi_Config.IP);
         
-            ChangeSubForm(clsLiteOnCV.GetMainView(2));
+            ChangeSubForm(clsLiteOnCV.GetMainView(1));
             //FunInitStockerStsForm();
         }
 

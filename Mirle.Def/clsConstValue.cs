@@ -118,7 +118,74 @@ namespace Mirle.Def
             /// </summary>
             public const string NotFull = "NOTFULL";
         }
+        public class AlarmCode
+        {
+            public const string HeartBeat = "20000";
+        }
 
+        public class deviceID
+        {
+            public const string E1 = "E1";
+
+            public const string E2 = "E2";
+
+            public const string E801 = "E801";
+
+            public const string E802 = "E802";
+
+            public const string E803 = "E803";
+
+            public const string E804 = "E804";
+
+            public const string E805 = "E805";
+
+            public const string E806 = "E806";
+
+
+            public const string B800 = "B1";
+
+            public const string M800 = "M1";
+
+            public const string E04 = "LI1";
+
+            public const string E05 = "LI2";
+
+            public const string E04_10F = "LO1";
+
+            public const string E04_8F = "LO2";
+
+            public const string E05_8F = "LO3";
+
+            public const string E05_3F = "LO4";
+
+            public const string E05_5F = "LO5";
+
+            public const string E05_6F = "LO6";
+
+            public const string AGV_3F = "A1";
+
+            public const string AGV_5F = "A2";
+
+            public const string AGV_6F = "A3";
+
+            public const string A4 = "A4";
+
+            //8F整理區
+            public const string S0 = "S0";
+
+            //線邊倉
+            public const string SMT_123_F = "S1";
+
+            public const string SMT_123_B = "S2";
+
+            public const string SMT_456_F = "S3";
+
+            public const string SMT_456_B = "S4";
+
+            public const string SMT_789_F = "S5";
+
+            public const string SMT_789_B = "S6";
+        }
         public class CompleteCode
         {
             public const string PickProc_T2TimeOut = "C0";             //取物 T2 time out

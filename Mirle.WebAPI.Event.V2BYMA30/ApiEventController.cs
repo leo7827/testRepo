@@ -47,33 +47,36 @@ namespace Mirle.WebAPI.Event.V2BYMA30
 
                 ConveyorInfo buffer = clsLiteOnCV.GetBufferByStnNo(Body.bufferId , ref iFloor );
 
+                //跟電控討論過後 , 拿掉這段
+                #region 拿掉這段防呆
                 //檢查站口是否有警報
-                switch (iFloor)
-                {
-                    case 8:
-                        var cv8 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer.Index);
-                        if (cv8.Error)
-                        {
-                            bFlag_Fault = true;
-                        }
-                        break;
-                    default:
-                        var cv10 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer.Index);
-                        if (cv10.Error)
-                        {
-                            bFlag_Fault = true;
-                        }
-                        break;
+                //switch (iFloor)
+                //{
+                //    case 8:
+                //        var cv8 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer.Index);
+                //        if (cv8.Error)
+                //        {
+                //            bFlag_Fault = true;
+                //        }
+                //        break;
+                //    default:
+                //        var cv10 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer.Index);
+                //        if (cv10.Error)
+                //        {
+                //            bFlag_Fault = true;
+                //        }
+                //        break;
 
-                }
+                //}
 
-                if (bFlag_Fault)
-                {
-                    rMsg.returnCode = clsConstValue.ApiReturnCode.Fail;
-                    rMsg.returnComment = "不正常";
-                    clsWriLog.Log.FunWriTraceLog_CV($"<{Body.jobId}>BUFFER_ROLL_INFO Fail!" + " 該 CV 有警報");
-                    return Json(rMsg);
-                }
+                //if (bFlag_Fault)
+                //{
+                //    rMsg.returnCode = clsConstValue.ApiReturnCode.Fail;
+                //    rMsg.returnComment = "不正常";
+                //    clsWriLog.Log.FunWriTraceLog_CV($"<{Body.jobId}>BUFFER_ROLL_INFO Fail!" + " 該 CV 有警報");
+                //    return Json(rMsg);
+                //}
+                #endregion 
 
                 //檢查站口是否是自動
                 switch (iFloor)

@@ -42,6 +42,8 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
         private IPLCHost _plcHost;
         private IMPLCProvider _mplc;
 
+        //與controller的心跳
+        public bool bHeartbeat;
         public int[] OpcData => _Signal.GetConveyorSignal().OpcData.GetData();
         public ConveyorSignal Signal => _Signal.GetConveyorSignal();
         public bool IsConnected => _mplc.IsConnected;
@@ -178,18 +180,22 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_8F
 
                 _LastHeartbeatTime = DateTime.Now;
 
-                if (_HeartbeatReport)
-                {
-                    _HeartbeatReport = false;
-                    OnHeartbeatError?.Invoke(this, new AlarmEventArgs(false));
-                }
-            }
-            else
-            {
-                if (_LastHeartbeatTime.AddSeconds(3) > DateTime.Now && _HeartbeatReport)
+                if (!_HeartbeatReport)
                 {
                     _HeartbeatReport = true;
                     OnHeartbeatError?.Invoke(this, new AlarmEventArgs(true));
+                    bHeartbeat = true;
+                }
+            }
+
+
+            else
+            {
+                if (_LastHeartbeatTime.AddSeconds(3) < DateTime.Now && _HeartbeatReport)
+                {
+                    _HeartbeatReport = false;
+                    OnHeartbeatError?.Invoke(this, new AlarmEventArgs(false));
+                    bHeartbeat = false;
                 }
             }
         }

@@ -5,17 +5,20 @@ using Mirle.Def.V2BYMA30;
 using Mirle.DB.Object;
 using Mirle.Structure;
 using Mirle.LiteOn.V2BYMA30;
-using Mirle.DataBase;
-using Mirle.DB.Object.Table;
 using Mirle.WebAPI.V2BYMA30.ReportInfo;
+using System.Collections.Generic;
+using Mirle.DB.Object.Table;
+using Mirle.DataBase;
+using System.Threading;
 
 namespace Mirle.ASRS.WCS
 {
-    public class clsAlarm_Proc_8F
+    public class clsHB_Proc_8F
     {
         private System.Timers.Timer timRead = new System.Timers.Timer();
-
-        public clsAlarm_Proc_8F()
+        public bool bFlag_Happen = false;  // 
+        public bool bFlag_Clear = true;  // 
+        public clsHB_Proc_8F()
         {
             timRead.Elapsed += new System.Timers.ElapsedEventHandler(timRead_Elapsed);
             timRead.Enabled = false; timRead.Interval = 1000;
@@ -25,45 +28,63 @@ namespace Mirle.ASRS.WCS
         {
             timRead.Enabled = true;
         }
-
-
         private void timRead_Elapsed(object source, System.Timers.ElapsedEventArgs e)
         {
             timRead.Enabled = false;
+
             try
             {
-                int iErrorCode = 0;
-                int iErrorIndex = 0;
-                int iErrorStatus = 0;
-                int iErrorIndexPC = 0;
 
-                iErrorCode = clsLiteOnCV.GetConveyorController_8F().Signal.ErrorCode.GetValue();
-                iErrorIndex = clsLiteOnCV.GetConveyorController_8F().Signal.ErrorIndex.GetValue();
-                iErrorStatus = clsLiteOnCV.GetConveyorController_8F().Signal.ErrorStatus.GetValue();
-                iErrorIndexPC = clsLiteOnCV.GetConveyorController_8F().Signal.Controller.ErrorIndex.GetValue();  
+                if (!clsLiteOnCV.GetConveyorController_8F().IsConnected && !bFlag_Happen)
+                {
 
-                if (iErrorIndex != 0 && iErrorIndex != iErrorIndexPC)
+                    //呼叫API
+                    ALARM_HAPPEN_REPORTInfo alarmReportInfo = new ALARM_HAPPEN_REPORTInfo()
+                    {
+                        jobId = "123",
+                        deviceId = clsConstValue.deviceID.E04_8F,
+                        alarmCode = clsConstValue.AlarmCode.HeartBeat,  //代表通訊異常
+                        alarmDef = "8F",
+                        bufferId = "TEST",
+                        status = "1",  //happen
+                        happenTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    };
+
+                    clsWmsApi.GetApiProcess().GetAlarmReport().FunReport(alarmReportInfo);
+
+                    clsWriLog.Log.FunWriTraceLog_CV($"<DeviceId> {alarmReportInfo.deviceId} <AlarmReport> =>  <AlarmCode> {alarmReportInfo.alarmCode} , <Status>{alarmReportInfo.status}");
+
+                    bFlag_Happen = true;
+                    bFlag_Clear = false;
+
+                    SpinWait.SpinUntil(() => false, 1000);
+                    //Thread.Sleep(1000);
+                }
+
+
+                if (clsLiteOnCV.GetConveyorController_8F().IsConnected && !bFlag_Clear)
                 {
                     //呼叫API
                     ALARM_HAPPEN_REPORTInfo alarmReportInfo = new ALARM_HAPPEN_REPORTInfo()
                     {
                         jobId = "123",
                         deviceId = clsConstValue.deviceID.E04_8F,
-                        alarmCode = iErrorCode.ToString(),
+                        alarmCode = clsConstValue.AlarmCode.HeartBeat,
                         alarmDef = "8F",
-                        bufferId = "test",
-                        status = (iErrorStatus == 1) ? "1" : "0",
+                        bufferId = "TEST",
+                        status = "0",  //clear
                         happenTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                     };
 
                     clsWmsApi.GetApiProcess().GetAlarmReport().FunReport(alarmReportInfo);
 
-                    clsLiteOnCV.GetConveyorController_8F().WriteErrorIndex(iErrorIndex); 
-            
                     clsWriLog.Log.FunWriTraceLog_CV($"<DeviceId> {alarmReportInfo.deviceId} <AlarmReport> =>  <AlarmCode> {alarmReportInfo.alarmCode} , <Status>{alarmReportInfo.status}");
 
-                }
+                    bFlag_Happen = false;
+                    bFlag_Clear = true;
 
+                    SpinWait.SpinUntil(() => false, 1000);
+                }
 
             }
             catch (Exception ex)
