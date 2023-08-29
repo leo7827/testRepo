@@ -52,7 +52,7 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_10F.Service
 
         private void TraceLog(string msg)
         {
-            _logger.WriteLog("PLCW_SysTrace.log", msg);
+            //_logger.WriteLog("PLCW_SysTrace.log", msg);
         }
 
         public void SetBitOff(string address)

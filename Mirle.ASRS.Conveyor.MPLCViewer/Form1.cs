@@ -29,8 +29,8 @@ namespace Mirle.ASRS.Conveyor.MPLCViewer
             {
                 _mplcViewController = null;
                 //_mplcViewController = LoadMPLCViewControllerByFile("Mirle.ASRS.Conveyor.V2BYMA30_8F.dll");
-                //_mplcViewController = LoadMPLCViewControllerByFile("Mirle.ASRS.Conveyor.V2BYMA30_10F.dll");
-                _mplcViewController = LoadMPLCViewControllerByFile("Mirle.ASRS.Conveyor.V2BYMA30_Elevator.dll");
+                _mplcViewController = LoadMPLCViewControllerByFile("Mirle.ASRS.Conveyor.V2BYMA30_10F.dll");
+                //_mplcViewController = LoadMPLCViewControllerByFile("Mirle.ASRS.Conveyor.V2BYMA30_Elevator.dll");
                 if (_mplcViewController == null)
                 {
                     MessageBox.Show("No Exist MPLC View Controller!!", "Load DLL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

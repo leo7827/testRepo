@@ -157,15 +157,37 @@ namespace APISendTest
             {
                 jobId = "123",
                 deviceId = "LO2",
-                alarmCode = "0070",
-                alarmDef = "10F",
+                alarmCode = "129",
+                alarmDef = "8F",
                 bufferId = "test",
-                status = "0",
+                status = "1",
                 happenTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 //happenTime = "2023-06-20 14:28:00"
             };
 
             alarm_happen_report.FunReport(request);
+
+
+            return;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ALARM_HAPPEN_REPORTInfo request = new ALARM_HAPPEN_REPORTInfo()
+            {
+                jobId = "123",
+                deviceId = "LO2",
+                alarmCode = "129",
+                alarmDef = "8F",
+                bufferId = "test",
+                status = "0",
+                happenTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+               
+            };
+
+            alarm_happen_report.FunReport(request);
+
+
 
             return;
         }

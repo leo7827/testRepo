@@ -49,6 +49,7 @@ namespace Mirle.ASRS.WCS
                 int iDoorStatus = clsLiteOnCV.GetConveyorController_Elevator().Signal.DoorStatus.GetValue();
                 int iDoorStatus_PC = clsLiteOnCV.GetConveyorController_Elevator().Signal.Controller.DoorNoticce.GetValue();
                 int iCurrentFloor = clsLiteOnCV.CheckElevatorFloor();  //電梯當下的樓層
+                int iTO = clsLiteOnCV.GetConveyorController_Elevator().Signal.Controller.Path.GetValue();   //電梯的目的樓層               
 
                 ConveyorInfo buffer_Ele_LI1_04 = ConveyorDef.LI1_04;  //電梯buffer 滾入
                 ConveyorInfo buffer_Ele_LI1_03 = ConveyorDef.LI1_03;  //電梯buffer 滾出
@@ -72,6 +73,12 @@ namespace Mirle.ASRS.WCS
                 {
                     return;
                 }
+                                
+                //電梯在動時先不派工
+                if (iTO != 0)
+                {
+                    return;
+                }
 
                 for (int i = 1; i <= 2; i++)
                 {
@@ -91,7 +98,22 @@ namespace Mirle.ASRS.WCS
                             var cvr_CV_In_8F_3 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_CV_8F_3.Index);  //LO2_03
 
                             if (iDoorStatus_PC == 0)
-                            {
+                            {                                
+                                // 電梯開門 , 平台都滿了就要關門 (合起來大於7版)
+                                if ( ( Chk8FCmd() + ChkEleCmd() ) > 6  && cvr_Ele_LI1_01.Presence  && !string.IsNullOrEmpty(cvr_Ele_LI1_01.CommandID))
+                                {
+                                    if (iDoorStatus == 2)
+                                    {
+                                        clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Close);
+                                        clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {8} F , 情境CV滿載 => 寫值成功！ ");
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+
                                 // 電梯關閉 , 裡面面有貨物要出去 , 通知開門
                                 if (iDoorStatus == 1  && (cvr_Ele_LI1_03.Presence || cvr_Ele_LI1_04.Presence))   //&& cvr_CV_In_8F_3.Presence
                                 {
@@ -115,6 +137,15 @@ namespace Mirle.ASRS.WCS
                                     clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {8} F , 情境3 => 寫值成功！ ");
                                     continue;
                                 }
+
+                                //電梯內只有電梯口貨物就關門 . 且沒有貨物要出去 / 也不能進來
+                                if (iDoorStatus == 2 && cvr_Ele_LI1_01.Presence && !cvr_Ele_LI1_02.Presence && string.IsNullOrEmpty(cvr_Ele_LI1_03.CommandID) && string.IsNullOrEmpty(cvr_Ele_LI1_04.CommandID)
+                                     && cvr_Ele_LI1_01.Ready == (int)clsEnum.Ready.IN)
+                                {
+                                    clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Close);
+                                    clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {8} F , 情境3.5 => 寫值成功！ ");
+                                    continue;
+                                }                                
 
                                 //門開 , 電梯已經沒有要執行的命令時就通知關門  
                                 //else if (iDoorStatus == 2 && string.IsNullOrEmpty(cvr_Ele_LI1_04.CommandID) && !cvr_Ele_LI1_03.Presence && !cvr_Ele_LI1_04.Presence && !cvr_CV_In_8F_2.Presence)  //&& cvr_Ele_LI1_02.Presence
@@ -209,6 +240,21 @@ namespace Mirle.ASRS.WCS
 
                             if (iDoorStatus_PC == 0)
                             {
+                                // 電梯開門 , 平台都滿了就要關門 (合起來大於7版)
+                                if ((Chk10FCmd() + ChkEleCmd()) > 6 && cvr_Ele_LI1_04.Presence && !string.IsNullOrEmpty(cvr_Ele_LI1_04.CommandID))
+                                {
+                                    if (iDoorStatus == 2)
+                                    {
+                                        clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Close);
+                                        clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {10} F , 情境CV滿載 => 寫值成功！ ");
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+
                                 // 電梯關閉 , 裡面面有貨物要出去 , 通知開門
                                 if (iDoorStatus == 1 &&  (cvr_Ele_LI1_01.Presence || cvr_Ele_LI1_02.Presence)) //cvr_CV_In_10F_3.Presence &&
                                 {
@@ -230,6 +276,15 @@ namespace Mirle.ASRS.WCS
                                 {
                                     clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Close);
                                     clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {10} F , 情境3 => 寫值成功！ ");
+                                    continue;
+                                }
+
+                                //電梯內只有電梯口貨物就關門 . 且沒有貨物要出去 / 也不能進來
+                                if (iDoorStatus == 2 && !cvr_Ele_LI1_03.Presence && cvr_Ele_LI1_04.Presence && string.IsNullOrEmpty(cvr_Ele_LI1_01.CommandID) && string.IsNullOrEmpty(cvr_Ele_LI1_02.CommandID)
+                                     && cvr_Ele_LI1_04.Ready == (int)clsEnum.Ready.IN)
+                                {
+                                    clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Close);
+                                    clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知關門> {10} F , 情境3.5 => 寫值成功！ ");
                                     continue;
                                 }
 
@@ -427,5 +482,120 @@ namespace Mirle.ASRS.WCS
             { return false; }
 
         }
+
+
+        private int Chk8FCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_8F_1 = ConveyorDef.LO2_01;
+            ConveyorInfo buffer_8F_2 = ConveyorDef.LO2_02;
+            ConveyorInfo buffer_8F_3 = ConveyorDef.LO2_03;
+            ConveyorInfo buffer_8F_4 = ConveyorDef.LO2_04;
+
+            var cvr_CV_8F_1 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_1.Index);  //LO2_01
+            var cvr_CV_8F_2 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_2.Index);  //LO2_02
+            var cvr_CV_8F_3 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_3.Index);  //LO2_03
+            var cvr_CV_8F_4 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_4.Index);  //LO2_04
+
+            if (cvr_CV_8F_1.Presence && !string.IsNullOrEmpty(cvr_CV_8F_1.CommandID) )
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_2.Presence && !string.IsNullOrEmpty(cvr_CV_8F_2.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_3.Presence && !string.IsNullOrEmpty(cvr_CV_8F_3.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_4.Presence && !string.IsNullOrEmpty(cvr_CV_8F_4.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
+        private int Chk10FCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_10F_1 = ConveyorDef.LO1_03;
+            ConveyorInfo buffer_10F_2 = ConveyorDef.LO1_04;
+            ConveyorInfo buffer_10F_3 = ConveyorDef.LO1_05;
+            ConveyorInfo buffer_10F_4 = ConveyorDef.LO1_06;
+
+            var cvr_CV_10F_1 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_1.Index);  //LO1_03
+            var cvr_CV_10F_2 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_2.Index);  //LO1_04
+            var cvr_CV_10F_3 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_3.Index);  //LO1_05
+            var cvr_CV_10F_4 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_4.Index);  //LO1_06
+
+            if (cvr_CV_10F_1.Presence && !string.IsNullOrEmpty(cvr_CV_10F_1.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_2.Presence && !string.IsNullOrEmpty(cvr_CV_10F_2.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_3.Presence && !string.IsNullOrEmpty(cvr_CV_10F_3.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_4.Presence && !string.IsNullOrEmpty(cvr_CV_10F_4.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
+        private int ChkEleCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_Ele_01 = ConveyorDef.LI1_01;
+            ConveyorInfo buffer_Ele_02 = ConveyorDef.LI1_02;
+            ConveyorInfo buffer_Ele_03 = ConveyorDef.LI1_03;
+            ConveyorInfo buffer_Ele_04 = ConveyorDef.LI1_04;
+
+            var cvr_Ele_01 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_01.Index);  //LI1_01
+            var cvr_Ele_02 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_02.Index);  //LI1_02
+            var cvr_Ele_03 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_03.Index);  //LI1_03
+            var cvr_Ele_04 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_04.Index);  //LI1_04
+
+            if (cvr_Ele_01.Presence && !string.IsNullOrEmpty(cvr_Ele_01.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_02.Presence && !string.IsNullOrEmpty(cvr_Ele_02.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_03.Presence && !string.IsNullOrEmpty(cvr_Ele_03.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_04.Presence && !string.IsNullOrEmpty(cvr_Ele_04.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
+
+
     }
 }

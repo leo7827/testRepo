@@ -173,6 +173,7 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator.View
             {
                 conveyorController.Floor_Ini();
                 conveyorController.Door_Ini();
+                _LoggerService.WriteLog($"手動按下電梯初始通知");
             }
             catch (Exception ex)
             {
@@ -187,21 +188,25 @@ namespace Mirle.ASRS.Conveyor.V2BYMA30_Elevator.View
         private void btnTo8F_Click(object sender, EventArgs e)
         {
             conveyorController.SetFloor(8);
+            _LoggerService.WriteLog($"手動按下8樓移動通知");
         }
 
         private void btnTo10F_Click(object sender, EventArgs e)
         {
             conveyorController.SetFloor(10);
+            _LoggerService.WriteLog($"手動按下10樓移動通知");
         }
 
         private void btnOpenDoor_Click(object sender, EventArgs e)
         {
             conveyorController.WriteDoorIndex(2);
+            _LoggerService.WriteLog($"手動按下開門通知");
         }
 
         private void btnCloseDoor_Click(object sender, EventArgs e)
         {
             conveyorController.WriteDoorIndex(1);
+            _LoggerService.WriteLog($"手動按下關門通知");
         }
     }
 }

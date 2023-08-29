@@ -111,28 +111,56 @@ namespace Mirle.ASRS.WCS
                 //if ( (cv_Elevator_Out2.Presence || cv_Elevator_Out1.Presence) && !cv_10F_Out1.Presence)
                 if (iCurrentFloor == 10 &&(cv_Elevator_LI1_01.Presence || cv_Elevator_LI1_02.Presence))
                 {
-                    bFlag = true;
+                    if (( ChkEleCmd() + Chk10FCmd()) > 6)
+                    {
+                        bFlag = false;
+                    }
+                    else
+                    {
+                        bFlag = true;
+                    }
                 }
 
                 //10樓有貨物要進電梯
                 //if (cv_10F_In1.Presence && !cv_Elevator_In2.Presence)
                 if (iCurrentFloor == 10 && !cv_Elevator_LI1_04.Presence && cv_10F_In1.Presence)
                 {
-                    bFlag = true;
+                    if ((ChkEleCmd() + Chk10FCmd()) > 6)
+                    {
+                        bFlag = false;
+                    }
+                    else
+                    {
+                        bFlag = true;
+                    }                    
                 }
 
                 //電梯內有貨物要出到八樓
                 //if ( (cv_Elevator_In1.Presence || cv_Elevator_In2.Presence) && !cv_8F_Out1.Presence)
                 if (iCurrentFloor == 8 && (cv_Elevator_LI1_03.Presence || cv_Elevator_LI1_04.Presence))
                 {
-                    bFlag = true;
+                    if ((ChkEleCmd() + Chk8FCmd()) > 6)
+                    {
+                        bFlag = false;
+                    }
+                    else
+                    {
+                        bFlag = true;
+                    }                   
                 }
 
                 //八樓有貨物要進電梯
                 //if (cv_8F_In1.Presence && !cv_Elevator_Out2.Presence)
                 if (iCurrentFloor == 8 && !cv_Elevator_LI1_01.Presence && cv_8F_In1.Presence)
                 {
-                    bFlag = true;
+                    if ((ChkEleCmd() + Chk8FCmd()) > 6)
+                    {
+                        bFlag = false;
+                    }
+                    else
+                    {
+                        bFlag = true;
+                    }                     
                 }
                 #endregion
                  
@@ -187,13 +215,6 @@ namespace Mirle.ASRS.WCS
                 {
                     return;
                 } 
-             
-
-                if (iTO != 0)
-                {
-                    return;
-                }
-                
 
                 switch (iCurrentFloor)
                 {          
@@ -234,5 +255,117 @@ namespace Mirle.ASRS.WCS
                 timRead.Enabled = true;
             }
         }
+
+        private int Chk8FCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_8F_1 = ConveyorDef.LO2_01;
+            ConveyorInfo buffer_8F_2 = ConveyorDef.LO2_02;
+            ConveyorInfo buffer_8F_3 = ConveyorDef.LO2_03;
+            ConveyorInfo buffer_8F_4 = ConveyorDef.LO2_04;
+
+            var cvr_CV_8F_1 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_1.Index);  //LO2_01
+            var cvr_CV_8F_2 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_2.Index);  //LO2_02
+            var cvr_CV_8F_3 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_3.Index);  //LO2_03
+            var cvr_CV_8F_4 = clsLiteOnCV.GetConveyorController_8F().GetBuffer(buffer_8F_4.Index);  //LO2_04
+
+            if (cvr_CV_8F_1.Presence && !string.IsNullOrEmpty(cvr_CV_8F_1.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_2.Presence && !string.IsNullOrEmpty(cvr_CV_8F_2.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_3.Presence && !string.IsNullOrEmpty(cvr_CV_8F_3.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_8F_4.Presence && !string.IsNullOrEmpty(cvr_CV_8F_4.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
+        private int Chk10FCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_10F_1 = ConveyorDef.LO1_03;
+            ConveyorInfo buffer_10F_2 = ConveyorDef.LO1_04;
+            ConveyorInfo buffer_10F_3 = ConveyorDef.LO1_05;
+            ConveyorInfo buffer_10F_4 = ConveyorDef.LO1_06;
+
+            var cvr_CV_10F_1 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_1.Index);  //LO1_03
+            var cvr_CV_10F_2 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_2.Index);  //LO1_04
+            var cvr_CV_10F_3 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_3.Index);  //LO1_05
+            var cvr_CV_10F_4 = clsLiteOnCV.GetConveyorController_10F().GetBuffer(buffer_10F_4.Index);  //LO1_06
+
+            if (cvr_CV_10F_1.Presence && !string.IsNullOrEmpty(cvr_CV_10F_1.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_2.Presence && !string.IsNullOrEmpty(cvr_CV_10F_2.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_3.Presence && !string.IsNullOrEmpty(cvr_CV_10F_3.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_CV_10F_4.Presence && !string.IsNullOrEmpty(cvr_CV_10F_4.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
+        private int ChkEleCmd()
+        {
+            int iCount = 0;
+
+            ConveyorInfo buffer_Ele_01 = ConveyorDef.LI1_01;
+            ConveyorInfo buffer_Ele_02 = ConveyorDef.LI1_02;
+            ConveyorInfo buffer_Ele_03 = ConveyorDef.LI1_03;
+            ConveyorInfo buffer_Ele_04 = ConveyorDef.LI1_04;
+
+            var cvr_Ele_01 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_01.Index);  //LI1_01
+            var cvr_Ele_02 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_02.Index);  //LI1_02
+            var cvr_Ele_03 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_03.Index);  //LI1_03
+            var cvr_Ele_04 = clsLiteOnCV.GetConveyorController_Elevator().GetBuffer(buffer_Ele_04.Index);  //LI1_04
+
+            if (cvr_Ele_01.Presence && !string.IsNullOrEmpty(cvr_Ele_01.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_02.Presence && !string.IsNullOrEmpty(cvr_Ele_02.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_03.Presence && !string.IsNullOrEmpty(cvr_Ele_03.CommandID))
+            {
+                iCount++;
+            }
+
+            if (cvr_Ele_04.Presence && !string.IsNullOrEmpty(cvr_Ele_04.CommandID))
+            {
+                iCount++;
+            }
+
+            return iCount;
+        }
+
     }
 }

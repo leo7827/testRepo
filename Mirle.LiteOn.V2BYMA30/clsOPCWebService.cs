@@ -172,7 +172,7 @@ namespace Mirle.LiteOn.V2BYMA30
         {
             try
             {
-                clsWriLog.Log.FunWriTraceLog_CV($"Send({serialNumber}){Environment.NewLine}{jsonString}");
+                //clsWriLog.Log.FunWriTraceLog_CV($"Send({serialNumber}){Environment.NewLine}{jsonString}");
             }
             catch (Exception ex)
             {
@@ -183,7 +183,7 @@ namespace Mirle.LiteOn.V2BYMA30
         {
             try
             {
-                clsWriLog.Log.FunWriTraceLog_CV($"Receive({serialNumber}){Environment.NewLine}{jsonString}");
+                //clsWriLog.Log.FunWriTraceLog_CV($"Receive({serialNumber}){Environment.NewLine}{jsonString}");
             }
             catch (Exception ex)
             {

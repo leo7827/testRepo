@@ -518,7 +518,7 @@ namespace Mirle.ASRS.WCS.View
 
             PLCModeChange_Proc.subStart();
             PLCModeChange_Proc_10F.subStart();
-          
+
 
             _unityContainer = new UnityContainer();
             _unityContainer.RegisterInstance(new WCSController());
