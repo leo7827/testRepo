@@ -80,6 +80,7 @@ namespace Mirle.ASRS.WCS.View
         public static clsPLCModeChange_Proc PLCModeChange_Proc = new clsPLCModeChange_Proc();
         public static clsPLCModeChange_Proc_10F PLCModeChange_Proc_10F = new clsPLCModeChange_Proc_10F();
 
+        public static clsManualOperate_Proc ManualOperate_Proc = new clsManualOperate_Proc();
         public MainForm()
         {
             InitializeComponent();
@@ -519,6 +520,7 @@ namespace Mirle.ASRS.WCS.View
             PLCModeChange_Proc.subStart();
             PLCModeChange_Proc_10F.subStart();
 
+            ManualOperate_Proc.subStart();
 
             _unityContainer = new UnityContainer();
             _unityContainer.RegisterInstance(new WCSController());

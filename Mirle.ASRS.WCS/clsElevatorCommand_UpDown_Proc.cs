@@ -66,8 +66,7 @@ namespace Mirle.ASRS.WCS
                 if (iDoorStatus != 1)
                 {
                     return;
-                }
-
+                }                               
 
                 #region  CV條件
 

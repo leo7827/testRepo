@@ -33,9 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_3F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_3F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_3F.dll</HintPath>
-    </Reference>
     <Reference Include="Mirle.Def.V2BYMA30">
       <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
     </Reference>

@@ -33,9 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_3F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_3F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_3F.dll</HintPath>
-    </Reference>
     <Reference Include="Mirle.Def.V2BYMA30">
       <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
     </Reference>
@@ -79,10 +76,6 @@
     <ProjectReference Include="..\Mirle.DB.Fun\Mirle.DB.Fun.csproj">
       <Project>{c40166b0-0f5d-4535-94a7-699764a59a83}</Project>
       <Name>Mirle.DB.Fun</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mirle.DB.WMS.Proc\Mirle.DB.WMS.Proc.csproj">
-      <Project>{553bd8cf-f4c1-4b39-97ab-42cc2f7c8187}</Project>
-      <Name>Mirle.DB.WMS.Proc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mirle.Def\Mirle.Def.csproj">
       <Project>{906da4ee-6b8d-40c7-bd49-a410feb1d2c8}</Project>

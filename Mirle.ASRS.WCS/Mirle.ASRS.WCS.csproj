@@ -95,6 +95,7 @@
     <Compile Include="clsHB_Proc_10F.cs" />
     <Compile Include="clsHB_Proc_8F.cs" />
     <Compile Include="clsHB_Proc_Elevator.cs" />
+    <Compile Include="clsManualOperate_Proc.cs" />
     <Compile Include="clsPLCModeChange_Proc.cs" />
     <Compile Include="clsPLCModeChange_Proc_10F.cs" />
     <Compile Include="clsPositionReport10F_Proc.cs" />
