@@ -19,7 +19,8 @@ namespace Mirle.ASRS.WCS
     /// </summary>
     public class clsElevatorCommand_UpDown_Proc
     {
-        private System.Timers.Timer timRead = new System.Timers.Timer();       
+        private System.Timers.Timer timRead = new System.Timers.Timer();
+        private int iCount_AutoClear = 0;
 
         public clsElevatorCommand_UpDown_Proc()
         {
@@ -47,6 +48,8 @@ namespace Mirle.ASRS.WCS
                 bool bFlag10F = false;
                 bool bFlag8F = false;
 
+                //int iCount_AutoClear = 0;
+
                 if (!clsLiteOnCV.CheckElevatorIsAgv())
                 {
                     return;
@@ -55,6 +58,23 @@ namespace Mirle.ASRS.WCS
                 if (iCurrentFloor == 0)
                 {
                     return;
+                }
+
+                //如果狀態不對 ,  10秒後自動清掉 PC 樓層訊號
+                if (iDoorStatus == 2 && iTO != 0)
+                {
+                    if (iCount_AutoClear > 20)
+                    {
+                        clsLiteOnCV.GetConveyorController_Elevator().SetFloor(0);
+                        iCount_AutoClear = 0;
+                        clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  通知樓層PC清值 => 寫值成功！ ");
+                        return;
+                    }
+                    else
+                    {
+                        iCount_AutoClear++;
+                        return;
+                    }
                 }
 
                 //電梯在動時先不派工
@@ -66,7 +86,8 @@ namespace Mirle.ASRS.WCS
                 if (iDoorStatus != 1)
                 {
                     return;
-                }                               
+                }
+               
 
                 #region  CV條件
 
@@ -223,6 +244,7 @@ namespace Mirle.ASRS.WCS
                         {
                             clsLiteOnCV.GetConveyorController_Elevator().SetFloor(clsConstValue.FloorPath.Floor_10);
                             clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知移動> {10} F => 寫值成功！ ");
+                            iCount_AutoClear = 0;
                         } 
 
                         break;
@@ -233,7 +255,7 @@ namespace Mirle.ASRS.WCS
                         {
                             clsLiteOnCV.GetConveyorController_Elevator().SetFloor(clsConstValue.FloorPath.Floor_8);
                             clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知移動> {8} F => 寫值成功！ ");
-
+                            iCount_AutoClear = 0;
                         }
 
                         break;
