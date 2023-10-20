@@ -251,7 +251,7 @@ namespace Mirle.ASRS.WCS
                             //平台已伸出
                             if (iFloor == 10 && iDoorStatus == 2 && !string.IsNullOrEmpty(cvEle2.CommandID) && iDoorStatus_PC == 0 && cvEle2.RollNotice != 0 && !cvEle2.Presence &&
                                 cv3.Presence && !string.IsNullOrEmpty(sCmdSno) && cv3.RollNotice_PC == 0 && cv3.RollNotice == 0 && cv3.Ready == (int)clsEnum.Ready.IN &&
-                                iElePlatformOnSts == 1
+                                iElePlatformOnSts == 1 && cvEle2.CommandID == sCmdSno
                                 )
                             {
                                 if (cv3.WriteRolling().Result)
