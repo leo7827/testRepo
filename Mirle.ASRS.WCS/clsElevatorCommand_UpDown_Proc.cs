@@ -63,18 +63,18 @@ namespace Mirle.ASRS.WCS
                 //如果狀態不對 ,  10秒後自動清掉 PC 樓層訊號
                 if (iDoorStatus == 2 && iTO != 0)
                 {
-                    if (iCount_AutoClear > 20)
-                    {
-                        clsLiteOnCV.GetConveyorController_Elevator().SetFloor(0);
-                        iCount_AutoClear = 0;
-                        clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  通知樓層PC清值 => 寫值成功！ ");
-                        return;
-                    }
-                    else
-                    {
-                        iCount_AutoClear++;
-                        return;
-                    }
+                    //if (iCount_AutoClear > 20)
+                    //{
+                    //    clsLiteOnCV.GetConveyorController_Elevator().SetFloor(0);
+                    //    iCount_AutoClear = 0;
+                    //    clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  通知樓層PC清值 => 寫值成功！ ");
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //    iCount_AutoClear++;
+                    //    return;
+                    //}
                 }
 
                 //電梯在動時先不派工

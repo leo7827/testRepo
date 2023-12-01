@@ -123,7 +123,7 @@ namespace Mirle.ASRS.WCS
                                 }
 
                                 // 電梯關閉 , 外面有貨物等待進來 , 通知開門
-                                if (iDoorStatus == 1 && cvr_CV_In_8F_2.Presence && (!cvr_Ele_LI1_01.Presence || !cvr_Ele_LI1_02.Presence))
+                                if (iDoorStatus == 1 && cvr_CV_In_8F_2.Presence && !cvr_Ele_LI1_01.Presence && string.IsNullOrEmpty(cvr_Ele_LI1_01.CommandID) && cvr_Ele_LI1_02.RollNotice == 0)
                                 {
                                     clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Open);
                                     clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知開門> {8} F , 情境2 => 寫值成功！ ");
@@ -264,7 +264,7 @@ namespace Mirle.ASRS.WCS
                                 }
 
                                 // 電梯關閉 , 外面有貨物等待進來 , 通知開門
-                                if (iDoorStatus == 1 && cvr_CV_In_10F_2.Presence && (!cvr_Ele_LI1_03.Presence || !cvr_Ele_LI1_04.Presence))
+                                if (iDoorStatus == 1 && cvr_CV_In_10F_2.Presence && !cvr_Ele_LI1_04.Presence && string.IsNullOrEmpty(cvr_Ele_LI1_04.CommandID) && cvr_Ele_LI1_03.RollNotice == 0)                              
                                 {
                                     clsLiteOnCV.GetConveyorController_Elevator().WriteDoorIndex(clsConstValue.DoorStatus.Open);
                                     clsWriLog.Log.FunWriTraceLog_CV($"<Elevator>  <通知開門> {10} F , 情境2 => 寫值成功！ ");
