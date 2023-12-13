@@ -1,0 +1,57 @@
+stages:
+  - build
+
+
+build:merge-request:
+  stage: build
+  tags:
+    - windows-shell
+  script:
+    - cp ci_nuget.config NuGet.Config
+    - dotnet nuget add source ${NUGET_MIRLE_STANDARD_LIBRARIES} `
+        --name mirle-standard-libraries `
+        --username "${NUGET_READ_USER}" `
+        --password "${NUGET_READ_TOKEN}" `
+        --configfile NuGet.Config
+    - dotnet nuget list source
+    - nuget restore
+    - MSBuild -nodeReuse:false -t:restore -p:RestorePackagesConfig=true
+    - dotnet sonarscanner begin `
+        /k:"$SONAR_PROJECT_KEY" `
+        /d:sonar.host.url=${SONAR_HOST_URL} `
+        /d:sonar.login=${SONAR_LOGIN} `
+        /d:sonar.sourceEncoding=UTF-8 `
+        /d:sonar.qualitygate.wait=true
+    - MSBuild -nodeReuse:false
+    - dotnet sonarscanner end `
+        /d:sonar.login=${SONAR_LOGIN}
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+
+build:main-updated:
+  stage: build
+  tags:
+    - windows-shell
+  script:
+    - cp ci_nuget.config NuGet.Config
+    - dotnet nuget add source ${NUGET_MIRLE_STANDARD_LIBRARIES} `
+        --name mirle-standard-libraries `
+        --username "${NUGET_READ_USER}" `
+        --password "${NUGET_READ_TOKEN}" `
+        --configfile NuGet.Config
+    - dotnet nuget list source
+    - nuget restore
+    - MSBuild -nodeReuse:false -t:restore -p:RestorePackagesConfig=true
+    - dotnet sonarscanner begin `
+        /k:"$SONAR_PROJECT_KEY" `
+        /d:sonar.host.url=${SONAR_HOST_URL} `
+        /d:sonar.login=${SONAR_LOGIN} `
+        /d:sonar.sourceEncoding=UTF-8 `
+        /d:sonar.qualitygate.wait=false `
+        /v:${CI_COMMIT_SHORT_SHA}
+    - MSBuild -nodeReuse:false
+    - dotnet sonarscanner end `
+        /d:sonar.login=${SONAR_LOGIN}
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "master"'
