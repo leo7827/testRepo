@@ -33,9 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_3F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_3F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_3F.dll</HintPath>
-    </Reference>
     <Reference Include="Mirle.Def.V2BYMA30">
       <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
     </Reference>
@@ -43,7 +40,7 @@
       <HintPath>..\Mirle.Grid.V2BYMA30\bin\Debug\Mirle.Grid.V2BYMA30.dll</HintPath>
     </Reference>
     <Reference Include="Mirle.LiteOn.V2BYMA30">
-      <HintPath>..\Mirle.LiteOn.V2BYMA30\bin\Debug\Mirle.LiteOn.V2BYMA30.dll</HintPath>
+      <HintPath>..\Mirle.LiteOn.V2BYMA30\obj\Debug\Mirle.LiteOn.V2BYMA30.dll</HintPath>
     </Reference>
     <Reference Include="Mirle.WebAPI.V2BYMA30">
       <HintPath>..\Mirle.WebAPI.V2BYMA30\bin\Debug\Mirle.WebAPI.V2BYMA30.dll</HintPath>
@@ -102,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mirle">
-      <Version>1.3.3</Version>
+      <Version>1.3.9</Version>
     </PackageReference>
     <PackageReference Include="Mirle.MPLC.MCProtocol">
       <Version>1.0.2</Version>

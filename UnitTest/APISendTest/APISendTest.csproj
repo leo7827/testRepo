@@ -44,8 +44,8 @@
     <Reference Include="Microsoft.Owin.Hosting, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.Hosting.4.2.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
-    <Reference Include="Mirle, Version=1.3.3.2101, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Mirle.1.3.3\lib\net472\Mirle.dll</HintPath>
+    <Reference Include="Mirle, Version=1.3.9.2205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Mirle.1.3.9\lib\net472\Mirle.dll</HintPath>
     </Reference>
     <Reference Include="Mirle.WebAPI.Event.V2BYMA30">
       <HintPath>..\..\Mirle.WebAPI.Event.V2BYMA30\bin\Debug\Mirle.WebAPI.Event.V2BYMA30.dll</HintPath>

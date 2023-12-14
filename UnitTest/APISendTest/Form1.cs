@@ -33,7 +33,7 @@ namespace APISendTest
         private CV_BUFFER_QUERY cv_buffer_query; 
         private EMPTY_BIN_LOAD_DONE empty_BIN_LOAD_DONE;
         private ALARM_HAPPEN_REPORT alarm_happen_report;
-
+        private BCR_CHECK_REQUEST bcr_check_request;
         //private EmptyShelfQuery emptyShelfQuery;
         //private string listening_ip = "*:9000";
 
@@ -55,6 +55,7 @@ namespace APISendTest
             empty_BIN_LOAD_DONE = new EMPTY_BIN_LOAD_DONE(send_webApiConfig);
 
             alarm_happen_report = new ALARM_HAPPEN_REPORT(send_webApiConfig);
+            bcr_check_request = new BCR_CHECK_REQUEST(send_webApiConfig); 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -188,6 +189,24 @@ namespace APISendTest
             alarm_happen_report.FunReport(request);
 
 
+
+            return;
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            BCR_CHECK_REQUESTInfo_Response response = new BCR_CHECK_REQUESTInfo_Response();
+
+            BCR_CHECK_REQUESTInfo bcr_check_requestInfo = new BCR_CHECK_REQUESTInfo()
+            {
+                jobId = "001",
+                transactionId = "BCR_CHECK_REQUEST",
+                barcode = "TEST",
+                carrierType = "BIN", 
+                location = "B1-117",
+            };
+
+            bcr_check_request.funReport(bcr_check_requestInfo, ref response);
 
             return;
         }
