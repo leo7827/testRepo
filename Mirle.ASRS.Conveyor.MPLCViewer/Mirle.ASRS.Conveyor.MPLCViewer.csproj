@@ -36,15 +36,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_10F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_10F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_10F.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_8F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_8F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_8F.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_Elevator">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30.Elevator\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_Elevator.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -98,6 +89,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mirle.ASRS.Conveyor.V2BYMA30.Elevator\Mirle.ASRS.Conveyor.V2BYMA30.Elevator.csproj">
+      <Project>{f8907550-db44-4c9e-b3f4-539878aa6895}</Project>
+      <Name>Mirle.ASRS.Conveyor.V2BYMA30.Elevator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.ASRS.Conveyor.V2BYMA30_10F\Mirle.ASRS.Conveyor.V2BYMA30_10F.csproj">
+      <Project>{ec498afb-e489-45f8-b1c5-1a987c14af88}</Project>
+      <Name>Mirle.ASRS.Conveyor.V2BYMA30_10F</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.ASRS.Conveyor.V2BYMA30_8F\Mirle.ASRS.Conveyor.V2BYMA30_8F.csproj">
+      <Project>{fec99299-6e23-4d5a-abec-576675dadc88}</Project>
+      <Name>Mirle.ASRS.Conveyor.V2BYMA30_8F</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.Structure\Mirle.Structure.csproj">
       <Project>{0a0d222e-0c76-4838-a8b1-6ca6f26cb225}</Project>
       <Name>Mirle.Structure</Name>

@@ -33,22 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_10F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_10F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_10F.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.ASRS.Conveyor.V2BYMA30_8F">
-      <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30_8F\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_8F.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.DB.Fun, Version=1.0.2203.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Mirle.DB.Fun\bin\Debug\Mirle.DB.Fun.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.Def.V2BYMA30">
-      <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.LiteOn.V2BYMA30">
-      <HintPath>..\Mirle.LiteOn.V2BYMA30\bin\Debug\Mirle.LiteOn.V2BYMA30.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -87,6 +71,18 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mirle.ASRS.Conveyor.V2BYMA30_10F\Mirle.ASRS.Conveyor.V2BYMA30_10F.csproj">
+      <Project>{ec498afb-e489-45f8-b1c5-1a987c14af88}</Project>
+      <Name>Mirle.ASRS.Conveyor.V2BYMA30_10F</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.ASRS.Conveyor.V2BYMA30_8F\Mirle.ASRS.Conveyor.V2BYMA30_8F.csproj">
+      <Project>{fec99299-6e23-4d5a-abec-576675dadc88}</Project>
+      <Name>Mirle.ASRS.Conveyor.V2BYMA30_8F</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.DB.Fun\Mirle.DB.Fun.csproj">
+      <Project>{c40166b0-0f5d-4535-94a7-699764a59a83}</Project>
+      <Name>Mirle.DB.Fun</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.DB.Object\Mirle.DB.Object.csproj">
       <Project>{25dda85b-35be-429d-81b4-025731c0e826}</Project>
       <Name>Mirle.DB.Object</Name>
@@ -95,9 +91,17 @@
       <Project>{60c72719-d780-4bc8-9198-fc21c9754918}</Project>
       <Name>Mirle.DB.Proc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mirle.Def.V2BYMA30\Mirle.Def.V2BYMA30.csproj">
+      <Project>{7d455c80-637b-4bda-8f68-ae2eb3c172d1}</Project>
+      <Name>Mirle.Def.V2BYMA30</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.Def\Mirle.Def.csproj">
       <Project>{906da4ee-6b8d-40c7-bd49-a410feb1d2c8}</Project>
       <Name>Mirle.Def</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.LiteOn.V2BYMA30\Mirle.LiteOn.V2BYMA30.csproj">
+      <Project>{baba9f79-55f0-4541-824b-06d869758189}</Project>
+      <Name>Mirle.LiteOn.V2BYMA30</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mirle.Log\Mirle.WriLog.csproj">
       <Project>{fcb3bfde-2247-4aa4-a652-f87c081b63fc}</Project>

@@ -33,18 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.Def.V2BYMA30">
-      <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.Grid.V2BYMA30">
-      <HintPath>..\Mirle.Grid.V2BYMA30\bin\Debug\Mirle.Grid.V2BYMA30.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.LiteOn.V2BYMA30">
-      <HintPath>..\Mirle.LiteOn.V2BYMA30\obj\Debug\Mirle.LiteOn.V2BYMA30.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.WebAPI.V2BYMA30">
-      <HintPath>..\Mirle.WebAPI.V2BYMA30\bin\Debug\Mirle.WebAPI.V2BYMA30.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -77,6 +65,10 @@
       <Project>{553bd8cf-f4c1-4b39-97ab-42cc2f7c8187}</Project>
       <Name>Mirle.DB.WMS.Proc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mirle.Def.V2BYMA30\Mirle.Def.V2BYMA30.csproj">
+      <Project>{7d455c80-637b-4bda-8f68-ae2eb3c172d1}</Project>
+      <Name>Mirle.Def.V2BYMA30</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.Def\Mirle.Def.csproj">
       <Project>{906da4ee-6b8d-40c7-bd49-a410feb1d2c8}</Project>
       <Name>Mirle.Def</Name>
@@ -85,6 +77,14 @@
       <Project>{8ab5fac9-7cc2-4eec-b583-39778e66ce1f}</Project>
       <Name>Mirle.Gird</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mirle.Grid.V2BYMA30\Mirle.Grid.V2BYMA30.csproj">
+      <Project>{b88ad651-3e7d-4e1d-b1ef-cfaf4dacb484}</Project>
+      <Name>Mirle.Grid.V2BYMA30</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.LiteOn.V2BYMA30\Mirle.LiteOn.V2BYMA30.csproj">
+      <Project>{baba9f79-55f0-4541-824b-06d869758189}</Project>
+      <Name>Mirle.LiteOn.V2BYMA30</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.Log\Mirle.WriLog.csproj">
       <Project>{fcb3bfde-2247-4aa4-a652-f87c081b63fc}</Project>
       <Name>Mirle.WriLog</Name>
@@ -92,6 +92,10 @@
     <ProjectReference Include="..\Mirle.Structure\Mirle.Structure.csproj">
       <Project>{0a0d222e-0c76-4838-a8b1-6ca6f26cb225}</Project>
       <Name>Mirle.Structure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.WebAPI.V2BYMA30\Mirle.WebAPI.V2BYMA30.csproj">
+      <Project>{41207533-eeeb-4786-b1cb-d2af76a79edc}</Project>
+      <Name>Mirle.WebAPI.V2BYMA30</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

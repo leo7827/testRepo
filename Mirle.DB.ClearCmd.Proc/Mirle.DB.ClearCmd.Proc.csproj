@@ -33,9 +33,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle, Version=1.3.9.2205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mirle.1.3.9\lib\net472\Mirle.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />

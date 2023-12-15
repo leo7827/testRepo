@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mirle.WriLog">
-      <HintPath>..\Mirle.Log\bin\Debug\Mirle.WriLog.dll</HintPath>
-    </Reference>
     <Reference Include="OpcDaNetUA.Net4, Version=10.3.0.0, Culture=neutral, PublicKeyToken=5b58a8d8b6f4763b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\OpcDaNetUA.Net4.dll</HintPath>
@@ -70,6 +67,12 @@
     <Content Include="Library\OpcDaNetUaOption.Net4.dll" />
     <Content Include="Library\OpcNetBase.Net4.dll" />
     <Content Include="Library\OPCWrite.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mirle.Log\Mirle.WriLog.csproj">
+      <Project>{fcb3bfde-2247-4aa4-a652-f87c081b63fc}</Project>
+      <Name>Mirle.WriLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

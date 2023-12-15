@@ -45,12 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Mirle.ASRS.Conveyor.V2BYMA30.Elevator\bin\Debug\Mirle.ASRS.Conveyor.V2BYMA30_Elevator.dll</HintPath>
     </Reference>
-    <Reference Include="Mirle.Def.V2BYMA30">
-      <HintPath>..\Mirle.Def.V2BYMA30\bin\Debug\Mirle.Def.V2BYMA30.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirle.Grid.V2BYMA30">
-      <HintPath>..\Mirle.Grid.V2BYMA30\bin\Debug\Mirle.Grid.V2BYMA30.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -189,6 +183,10 @@
       <Project>{553bd8cf-f4c1-4b39-97ab-42cc2f7c8187}</Project>
       <Name>Mirle.DB.WMS.Proc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mirle.Def.V2BYMA30\Mirle.Def.V2BYMA30.csproj">
+      <Project>{7d455c80-637b-4bda-8f68-ae2eb3c172d1}</Project>
+      <Name>Mirle.Def.V2BYMA30</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mirle.Def\Mirle.Def.csproj">
       <Project>{906da4ee-6b8d-40c7-bd49-a410feb1d2c8}</Project>
       <Name>Mirle.Def</Name>
@@ -196,6 +194,10 @@
     <ProjectReference Include="..\Mirle.Gird\Mirle.Gird.csproj">
       <Project>{8ab5fac9-7cc2-4eec-b583-39778e66ce1f}</Project>
       <Name>Mirle.Gird</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirle.Grid.V2BYMA30\Mirle.Grid.V2BYMA30.csproj">
+      <Project>{b88ad651-3e7d-4e1d-b1ef-cfaf4dacb484}</Project>
+      <Name>Mirle.Grid.V2BYMA30</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mirle.LiteOn.V2BYMA30\Mirle.LiteOn.V2BYMA30.csproj">
       <Project>{baba9f79-55f0-4541-824b-06d869758189}</Project>

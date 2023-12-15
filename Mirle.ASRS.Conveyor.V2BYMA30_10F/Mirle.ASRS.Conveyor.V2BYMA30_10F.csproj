@@ -34,10 +34,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.ACTMULTILib">
-      <HintPath>..\Mirle.ASRS.WCS\bin\Debug\Interop.ACTMULTILib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
